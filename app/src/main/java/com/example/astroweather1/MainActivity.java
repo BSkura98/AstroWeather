@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.astrocalculator.AstroCalculator;
 import com.astrocalculator.AstroDateTime;
+import com.example.astroweather1.fragments.MoonFragment;
 import com.example.astroweather1.fragments.PageFragment1;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         List<Fragment> list = new ArrayList<>();
         list.add(new PageFragment1());
-        list.add(new PageFragment1());
+        list.add(new MoonFragment());
 
         //pager = findViewById(R.id.view_pager);
         //pagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), list);

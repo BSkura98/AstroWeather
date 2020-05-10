@@ -2,4 +2,7 @@
     <string name="app_name">AstroWeather</string>
     <string name="tab_text_1">Sun</string>
     <string name="tab_text_2">Moon</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
