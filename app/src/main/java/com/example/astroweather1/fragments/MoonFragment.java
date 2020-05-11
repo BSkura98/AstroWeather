@@ -1,6 +1,7 @@
 package com.example.astroweather1.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,33 +15,62 @@ import com.astrocalculator.AstroCalculator;
 import com.astrocalculator.AstroDateTime;
 import com.example.astroweather1.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
+import static android.os.Looper.getMainLooper;
+
 public class MoonFragment extends Fragment {
-    TextView moonriseTextView, moonsetTextView, newMoonTextView, fullMoonTextView, moonPhaseTextView, moonAgeTextView;
+    TextView moonriseTextView, moonsetTextView, newMoonTextView, fullMoonTextView, moonPhaseTextView, moonAgeTextView, currentTime2;
     AstroDateTime astroDateTime;
     AstroCalculator.Location location;
     AstroCalculator astroCalculator;
     AstroCalculator.SunInfo sunInfo;
     AstroCalculator.MoonInfo moonInfo;
+    int refreshTime;
+    Calendar currentDate;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_moon,container,false);
 
-        initializeAstroCalculator();
-
         moonriseTextView = rootView.findViewById(R.id.moonriseTextView);
-        moonriseTextView.setText(moonInfo.getMoonrise().toString());
         moonsetTextView = rootView.findViewById(R.id.moonsetTextView);
-        moonsetTextView.setText(moonInfo.getMoonset().toString());
         newMoonTextView = rootView.findViewById(R.id.newMoonTextView);
-        newMoonTextView.setText(moonInfo.getNextNewMoon().toString());
         fullMoonTextView = rootView.findViewById(R.id.fullMoonTextView);
-        fullMoonTextView.setText(moonInfo.getNextFullMoon().toString());
         moonPhaseTextView = rootView.findViewById(R.id.moonPhaseTextView);
-        moonPhaseTextView.setText(Double.toString(moonInfo.getIllumination()));
         moonAgeTextView = rootView.findViewById(R.id.moonAgeTextView);
-        moonAgeTextView.setText(Double.toString(moonInfo.getAge()/24));
+        currentTime2 = rootView.findViewById(R.id.currentTime2);
+        refreshTime = 15;
+        currentDate = Calendar.getInstance();
+        initializeAstroCalculator(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH)+1, currentDate.get(Calendar.DAY_OF_MONTH), currentDate.get(Calendar.HOUR), currentDate.get(Calendar.MINUTE), currentDate.get(Calendar.SECOND));
+        setData();
+        final Handler someHandler = new Handler(getMainLooper());
+        someHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", new Locale("pl", "PL"));
+                sdf.setTimeZone(TimeZone.getTimeZone("GMT+2"));
+                currentTime2.setText(sdf.format(new Date()));
+
+                someHandler.postDelayed(this, 10);
+            }
+        }, 10);
+
+        someHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                someHandler.postDelayed(this, 60 * refreshTime);
+
+                initializeAstroCalculator(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH)+1, currentDate.get(Calendar.DAY_OF_MONTH), currentDate.get(Calendar.HOUR), currentDate.get(Calendar.MINUTE), currentDate.get(Calendar.SECOND));
+                setData();
+
+            }
+        }, 10);
 
         /*sunriseTextView = rootView.findViewById(R.id.sunriseTextView);
         //String text = sunInfo.getSunrise().toString();
@@ -60,14 +90,14 @@ public class MoonFragment extends Fragment {
         return rootView;
     }
 
-    public void initializeAstroCalculator(){
+    public void initializeAstroCalculator(int year, int month, int day, int hour, int minute, int second){
         astroDateTime = new AstroDateTime(
-                2020,
-                5,
-                9,
-                13,
-                4,
-                0,
+                year,
+                month,
+                day,
+                hour,
+                minute,
+                second,
                 2,
                 false
         );
@@ -76,5 +106,14 @@ public class MoonFragment extends Fragment {
 
         sunInfo = astroCalculator.getSunInfo();
         moonInfo = astroCalculator.getMoonInfo();
+    }
+
+    public void setData(){
+        moonriseTextView.setText(moonInfo.getMoonrise().toString());
+        moonsetTextView.setText(moonInfo.getMoonset().toString());
+        newMoonTextView.setText(moonInfo.getNextNewMoon().toString());
+        fullMoonTextView.setText(moonInfo.getNextFullMoon().toString());
+        moonPhaseTextView.setText(Double.toString(moonInfo.getIllumination()));
+        moonAgeTextView.setText(Double.toString(moonInfo.getAge()/24));
     }
 }
