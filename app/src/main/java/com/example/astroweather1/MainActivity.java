@@ -7,11 +7,13 @@ import com.astrocalculator.AstroCalculator;
 import com.astrocalculator.AstroDateTime;
 import com.example.astroweather1.fragments.MoonFragment;
 import com.example.astroweather1.fragments.PageFragment1;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -51,7 +53,10 @@ public class MainActivity extends AppCompatActivity {
         //pagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), list);
         //pager.setAdapter(pagerAdapter);
 
-
+        //AppBarLayout toolbar = (AppBarLayout) findViewById(R.id.appbar);
+        //setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(),list);
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
@@ -74,6 +79,28 @@ public class MainActivity extends AppCompatActivity {
         //twilightTextView.setText(sunInfo.getTwilightEvening().toString());
         dawnTextView = findViewById(R.id.dawnTextView);
         //dawnTextView.setText(sunInfo.getTwilightMorning().toString());*/
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.setting_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch (item.getItemId()) {
+            case R.id.refresh_time_settings:
+                return true;
+            case R.id.localization_settings:
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void initializeAstroCalculator(){
