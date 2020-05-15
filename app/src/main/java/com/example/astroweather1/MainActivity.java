@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Location.setLocation(51,19);
+
         List<Fragment> list = new ArrayList<>();
         list.add(new SunFragment());
         list.add(new MoonFragment());
@@ -71,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
                 refreshTimeDialog.show(getSupportFragmentManager(), "refreshTimeDialog");
                 return true;
             case R.id.localization_settings:
+                LocationDialog locationDialog = new LocationDialog();
+                locationDialog.show(getSupportFragmentManager(), "locationDialog");
                 return true;
         }
 

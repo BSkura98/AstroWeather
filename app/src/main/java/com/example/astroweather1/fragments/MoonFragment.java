@@ -101,8 +101,7 @@ public class MoonFragment extends Fragment {
                 2,
                 false
         );
-        location = new AstroCalculator.Location(51,19);
-        astroCalculator = new AstroCalculator(astroDateTime, location);
+        astroCalculator = new AstroCalculator(astroDateTime, Location.getLocation());
 
         sunInfo = astroCalculator.getSunInfo();
         moonInfo = astroCalculator.getMoonInfo();

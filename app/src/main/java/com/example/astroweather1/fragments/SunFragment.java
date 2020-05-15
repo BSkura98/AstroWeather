@@ -27,7 +27,6 @@ import static android.os.Looper.getMainLooper;
 public class SunFragment extends Fragment {
     TextView sunriseTextView, sunsetTextView, azimuthRiseTextView, azimuthSetTextView, twilightTextView, dawnTextView, currentTime1;
     AstroDateTime astroDateTime;
-    AstroCalculator.Location location;
     AstroCalculator astroCalculator;
     AstroCalculator.SunInfo sunInfo;
     AstroCalculator.MoonInfo moonInfo;
@@ -84,8 +83,7 @@ public class SunFragment extends Fragment {
                 2,
                 false
         );
-        location = new AstroCalculator.Location(51,19);
-        astroCalculator = new AstroCalculator(astroDateTime, location);
+        astroCalculator = new AstroCalculator(astroDateTime, Location.getLocation());
 
         sunInfo = astroCalculator.getSunInfo();
         moonInfo = astroCalculator.getMoonInfo();
