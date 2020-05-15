@@ -1,44 +1,37 @@
 package com.example.astroweather1;
 
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.astrocalculator.AstroCalculator;
 import com.astrocalculator.AstroDateTime;
+import com.example.astroweather1.dialogs.LocationDialog;
+import com.example.astroweather1.dialogs.RefreshTimeDialog;
 import com.example.astroweather1.fragments.MoonFragment;
-import com.example.astroweather1.fragments.PageFragment1;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.astroweather1.fragments.SunFragment;
 import com.google.android.material.tabs.TabLayout;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
 import com.example.astroweather1.ui.main.SectionsPagerAdapter;
+import com.example.astroweather1.commondata.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    TextView sunriseTextView, sunsetTextView, azimuthRiseTextView, azimuthSetTextView, twilightTextView, dawnTextView;
     AstroDateTime astroDateTime;
     AstroCalculator.Location location;
     AstroCalculator astroCalculator;
     AstroCalculator.SunInfo sunInfo;
     AstroCalculator.MoonInfo moonInfo;
-    private ViewPager pager;
-    private PagerAdapter pagerAdapter;
+    int refreshTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,15 +39,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         List<Fragment> list = new ArrayList<>();
-        list.add(new PageFragment1());
+        list.add(new SunFragment());
         list.add(new MoonFragment());
 
-        //pager = findViewById(R.id.view_pager);
-        //pagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), list);
-        //pager.setAdapter(pagerAdapter);
-
-        //AppBarLayout toolbar = (AppBarLayout) findViewById(R.id.appbar);
-        //setSupportActionBar(toolbar);
+        Intent intent = new Intent();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(),list);
@@ -62,23 +50,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-
-        //initializeAstroCalculator();
-
-        /*sunriseTextView = findViewById(R.id.sunriseTextView);
-        String text = sunInfo.getSunrise().toString();
-        //System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"+text);
-        sunriseTextView.setText(text);
-        sunsetTextView = findViewById(R.id.sunsetTextView);
-        //sunsetTextView.setText(sunInfo.getSunset().toString());
-        azimuthRiseTextView = findViewById(R.id.azimuthRiseTextView);
-        //azimuthRiseTextView.setText((int) sunInfo.getAzimuthRise());
-        azimuthSetTextView = findViewById(R.id.azimuthSetTextView);
-        //azimuthSetTextView.setText((int)sunInfo.getAzimuthSet());
-        twilightTextView = findViewById(R.id.twilightTextView);
-        //twilightTextView.setText(sunInfo.getTwilightEvening().toString());
-        dawnTextView = findViewById(R.id.dawnTextView);
-        //dawnTextView.setText(sunInfo.getTwilightMorning().toString());*/
+        refreshTime = 15;
     }
 
     @Override
@@ -95,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
             case R.id.refresh_time_settings:
+                RefreshTimeDialog refreshTimeDialog = new RefreshTimeDialog();
+                refreshTimeDialog.show(getSupportFragmentManager(), "refreshTimeDialog");
                 return true;
             case R.id.localization_settings:
                 return true;

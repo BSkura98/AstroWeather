@@ -14,7 +14,9 @@ import androidx.fragment.app.Fragment;
 import com.astrocalculator.AstroCalculator;
 import com.astrocalculator.AstroDateTime;
 import com.example.astroweather1.R;
+import com.example.astroweather1.commondata.*;
 
+import java.sql.Ref;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,7 +32,6 @@ public class MoonFragment extends Fragment {
     AstroCalculator astroCalculator;
     AstroCalculator.SunInfo sunInfo;
     AstroCalculator.MoonInfo moonInfo;
-    int refreshTime;
     Calendar currentDate;
 
     @Nullable
@@ -45,7 +46,6 @@ public class MoonFragment extends Fragment {
         moonPhaseTextView = rootView.findViewById(R.id.moonPhaseTextView);
         moonAgeTextView = rootView.findViewById(R.id.moonAgeTextView);
         currentTime2 = rootView.findViewById(R.id.currentTime2);
-        refreshTime = 15;
         currentDate = Calendar.getInstance();
         initializeAstroCalculator(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH)+1, currentDate.get(Calendar.DAY_OF_MONTH), currentDate.get(Calendar.HOUR), currentDate.get(Calendar.MINUTE), currentDate.get(Calendar.SECOND));
         setData();
@@ -64,7 +64,7 @@ public class MoonFragment extends Fragment {
         someHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                someHandler.postDelayed(this, 60 * refreshTime);
+                someHandler.postDelayed(this, 60 * RefreshTime.getRefreshTime());
 
                 initializeAstroCalculator(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH)+1, currentDate.get(Calendar.DAY_OF_MONTH), currentDate.get(Calendar.HOUR), currentDate.get(Calendar.MINUTE), currentDate.get(Calendar.SECOND));
                 setData();
