@@ -13,8 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.astroweather1.R;
-import com.example.astroweather1.commondata.Location;
-import com.example.astroweather1.commondata.RefreshTime;
+import com.example.astroweather1.AstroInformation;
 
 public class LocationDialog extends AppCompatDialogFragment {
     private EditText latitudeEditText;
@@ -39,7 +38,7 @@ public class LocationDialog extends AppCompatDialogFragment {
                 .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Location.setLocation(Double.parseDouble(latitudeEditText.getText().toString()),Double.parseDouble(longitudeEditText.getText().toString()));
+                        AstroInformation.setLocation(Double.parseDouble(latitudeEditText.getText().toString()),Double.parseDouble(longitudeEditText.getText().toString()));
                     }
                 });
 

@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.astroweather1.R;
-import com.example.astroweather1.commondata.RefreshTime;
+import com.example.astroweather1.AstroInformation;
 
 public class RefreshTimeDialog extends AppCompatDialogFragment {
     private EditText refreshTimeEditText;
@@ -37,7 +37,7 @@ public class RefreshTimeDialog extends AppCompatDialogFragment {
                 .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        RefreshTime.setRefreshTime(Integer.parseInt(refreshTimeEditText.getText().toString()));
+                        AstroInformation.setRefreshTime(Integer.parseInt(refreshTimeEditText.getText().toString()));
                     }
                 });
 
