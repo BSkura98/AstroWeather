@@ -1,5 +1,6 @@
 package com.example.astroweather1;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import com.example.astroweather1.dialogs.LocationDialog;
@@ -32,17 +33,31 @@ public class MainActivity extends AppCompatActivity {
         AstroInformation.setLocation(51,19);
         AstroInformation.setRefreshTime(15);
 
-        List<Fragment> list = new ArrayList<>();
-        list.add(new SunFragment());
-        list.add(new MoonFragment());
+        if(getResources().getConfiguration().orientation== Configuration.ORIENTATION_LANDSCAPE){
+            SunFragment sunFragment = new SunFragment();
+            MoonFragment moonFragment = new MoonFragment();
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(),list);
-        ViewPager viewPager = findViewById(R.id.view_pager);
-        viewPager.setAdapter(sectionsPagerAdapter);
-        TabLayout tabs = findViewById(R.id.tabs);
-        tabs.setupWithViewPager(viewPager);
+            Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container_a,sunFragment)
+                    .replace(R.id.container_b, moonFragment)
+                    .commit();
+
+        }else{
+            List<Fragment> list = new ArrayList<>();
+            list.add(new SunFragment());
+            list.add(new MoonFragment());
+
+            Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(),list);
+
+            ViewPager viewPager = findViewById(R.id.view_pager);
+            viewPager.setAdapter(sectionsPagerAdapter);
+            TabLayout tabs = findViewById(R.id.tabs);
+            tabs.setupWithViewPager(viewPager);
+        }
     }
 
     @Override
