@@ -67,11 +67,20 @@ public class SunFragment extends Fragment {
     }
 
     public void setData(){
-        sunriseTextView.setText(AstroInformation.getSunInfo().getSunrise().toString());
-        sunsetTextView.setText(AstroInformation.getSunInfo().getSunset().toString());
-        azimuthRiseTextView.setText(Double.toString(AstroInformation.getSunInfo().getAzimuthRise()));
-        azimuthSetTextView.setText(Double.toString(AstroInformation.getSunInfo().getAzimuthSet()));
-        twilightTextView.setText(AstroInformation.getSunInfo().getTwilightEvening().toString());
-        dawnTextView.setText(AstroInformation.getSunInfo().getTwilightMorning().toString());
+        int hour, minute;
+        hour = AstroInformation.getSunInfo().getSunrise().getHour();
+        minute = AstroInformation.getSunInfo().getSunrise().getMinute();
+        sunriseTextView.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
+        hour = AstroInformation.getSunInfo().getSunset().getHour();
+        minute = AstroInformation.getSunInfo().getSunset().getMinute();
+        sunsetTextView.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
+        azimuthRiseTextView.setText(String.format( "%.2f", AstroInformation.getSunInfo().getAzimuthRise())+"°");
+        azimuthSetTextView.setText(String.format( "%.2f", AstroInformation.getSunInfo().getAzimuthSet())+"°");
+        hour = AstroInformation.getSunInfo().getTwilightEvening().getHour();
+        minute = AstroInformation.getSunInfo().getTwilightEvening().getMinute();
+        twilightTextView.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
+        hour = AstroInformation.getSunInfo().getTwilightMorning().getHour();
+        minute = AstroInformation.getSunInfo().getTwilightMorning().getMinute();
+        dawnTextView.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
     }
 }

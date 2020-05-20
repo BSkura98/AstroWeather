@@ -68,11 +68,20 @@ public class MoonFragment extends Fragment {
     }
 
     public void setData(){
-        moonriseTextView.setText(AstroInformation.getMoonInfo().getMoonrise().toString());
-        moonsetTextView.setText(AstroInformation.getMoonInfo().getMoonset().toString());
-        newMoonTextView.setText(AstroInformation.getMoonInfo().getNextNewMoon().toString());
-        fullMoonTextView.setText(AstroInformation.getMoonInfo().getNextFullMoon().toString());
-        moonPhaseTextView.setText(Double.toString(AstroInformation.getMoonInfo().getIllumination()));
-        moonAgeTextView.setText(Double.toString(AstroInformation.getMoonInfo().getAge()/24));
+        int month, day, hour, minute;
+        hour = AstroInformation.getMoonInfo().getMoonrise().getHour();
+        minute = AstroInformation.getMoonInfo().getMoonrise().getMinute();
+        moonriseTextView.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
+        hour = AstroInformation.getMoonInfo().getMoonset().getHour();
+        minute = AstroInformation.getMoonInfo().getMoonset().getMinute();
+        moonsetTextView.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
+        month = AstroInformation.getMoonInfo().getNextNewMoon().getMonth();
+        day = AstroInformation.getMoonInfo().getNextNewMoon().getDay();
+        newMoonTextView.setText(AstroInformation.getMoonInfo().getNextNewMoon().getYear()+"."+(month<10?"0":"")+month+"."+(day<10?"0":"")+day);
+        month = AstroInformation.getMoonInfo().getNextFullMoon().getMonth();
+        day = AstroInformation.getMoonInfo().getNextFullMoon().getDay();
+        fullMoonTextView.setText(AstroInformation.getMoonInfo().getNextFullMoon().getYear()+"."+(month<10?"0":"")+month+"."+(day<10?"0":"")+day);
+        moonPhaseTextView.setText(String.format( "%.2f", AstroInformation.getMoonInfo().getIllumination()*100)+"%");
+        moonAgeTextView.setText(String.format( "%.0f", AstroInformation.getMoonInfo().getAge()));
     }
 }
