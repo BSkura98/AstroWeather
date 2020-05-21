@@ -24,7 +24,7 @@ import java.util.TimeZone;
 import static android.os.Looper.getMainLooper;
 
 public class MoonFragment extends Fragment {
-    private TextView moonriseTextView, moonsetTextView, newMoonTextView, fullMoonTextView, moonPhaseTextView, moonAgeTextView, currentTime2, textView13;
+    private TextView moonriseTextView, moonsetTextView, newMoonTextView, fullMoonTextView, moonPhaseTextView, moonAgeTextView, currentTime2, textView13, latitudeTextView, longitudeTextView;
     private Calendar currentDate;
 
     @Nullable
@@ -39,6 +39,8 @@ public class MoonFragment extends Fragment {
         moonPhaseTextView = rootView.findViewById(R.id.moonPhaseTextView);
         moonAgeTextView = rootView.findViewById(R.id.moonAgeTextView);
         currentTime2 = rootView.findViewById(R.id.currentTimeTextView);
+        latitudeTextView = rootView.findViewById(R.id.latitudeTextView);
+        longitudeTextView = rootView.findViewById(R.id.longitudeTextView);
         currentDate = Calendar.getInstance();
         AstroInformation.initializeAstroCalculator(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH)+1, currentDate.get(Calendar.DAY_OF_MONTH), currentDate.get(Calendar.HOUR), currentDate.get(Calendar.MINUTE), currentDate.get(Calendar.SECOND));
         setData();
@@ -47,7 +49,11 @@ public class MoonFragment extends Fragment {
             currentTime2.setText("");
             textView13 = rootView.findViewById(R.id.textView13);
             textView13.setText("");
+            latitudeTextView.setText("");
+            longitudeTextView.setText("");
         }else{
+            latitudeTextView.setText("Latitude: "+ AstroInformation.getLocation().getLatitude());
+            longitudeTextView.setText("Longitude: "+ AstroInformation.getLocation().getLongitude());
             someHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {

@@ -1,5 +1,6 @@
 package com.example.astroweather1.fragments;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -23,7 +24,7 @@ import java.util.TimeZone;
 import static android.os.Looper.getMainLooper;
 
 public class SunFragment extends Fragment {
-    private TextView sunriseTextView, sunsetTextView, azimuthRiseTextView, azimuthSetTextView, twilightTextView, dawnTextView, currentTime1;
+    private TextView sunriseTextView, sunsetTextView, azimuthRiseTextView, azimuthSetTextView, twilightTextView, dawnTextView, currentTime1, latitudeTextView, longitudeTextView;
     private Calendar currentDate;
 
     @Nullable
@@ -38,6 +39,10 @@ public class SunFragment extends Fragment {
         twilightTextView = rootView.findViewById(R.id.twilightTextView);
         dawnTextView = rootView.findViewById(R.id.dawnTextView);
         currentTime1 = rootView.findViewById(R.id.currentTimeTextView);
+        latitudeTextView = rootView.findViewById(R.id.latitudeTextView);
+        latitudeTextView.setText("Latitude: "+ AstroInformation.getLocation().getLatitude());
+        longitudeTextView = rootView.findViewById(R.id.longitudeTextView);
+        longitudeTextView.setText("Longitude: "+ AstroInformation.getLocation().getLongitude());
         currentDate = Calendar.getInstance();
         AstroInformation.initializeAstroCalculator(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH)+1, currentDate.get(Calendar.DAY_OF_MONTH), currentDate.get(Calendar.HOUR), currentDate.get(Calendar.MINUTE), currentDate.get(Calendar.SECOND));
         setData();
