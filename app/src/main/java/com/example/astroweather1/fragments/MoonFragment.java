@@ -1,5 +1,6 @@
 package com.example.astroweather1.fragments;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -23,7 +24,7 @@ import java.util.TimeZone;
 import static android.os.Looper.getMainLooper;
 
 public class MoonFragment extends Fragment {
-    private TextView moonriseTextView, moonsetTextView, newMoonTextView, fullMoonTextView, moonPhaseTextView, moonAgeTextView, currentTime2;
+    private TextView moonriseTextView, moonsetTextView, newMoonTextView, fullMoonTextView, moonPhaseTextView, moonAgeTextView, currentTime2, textView13;
     private Calendar currentDate;
 
     @Nullable
@@ -42,16 +43,22 @@ public class MoonFragment extends Fragment {
         AstroInformation.initializeAstroCalculator(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH)+1, currentDate.get(Calendar.DAY_OF_MONTH), currentDate.get(Calendar.HOUR), currentDate.get(Calendar.MINUTE), currentDate.get(Calendar.SECOND));
         setData();
         final Handler someHandler = new Handler(getMainLooper());
-        someHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", new Locale("pl", "PL"));
-                sdf.setTimeZone(TimeZone.getTimeZone("GMT+2"));
-                currentTime2.setText(sdf.format(new Date()));
+        if(getResources().getConfiguration().orientation== Configuration.ORIENTATION_LANDSCAPE){
+            currentTime2.setText("");
+            textView13 = rootView.findViewById(R.id.textView13);
+            textView13.setText("");
+        }else{
+            someHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", new Locale("pl", "PL"));
+                    sdf.setTimeZone(TimeZone.getTimeZone("GMT+2"));
+                    currentTime2.setText(sdf.format(new Date()));
 
-                someHandler.postDelayed(this, 10);
-            }
-        }, 10);
+                    someHandler.postDelayed(this, 10);
+                }
+            }, 10);
+        }
 
         someHandler.postDelayed(new Runnable() {
             @Override

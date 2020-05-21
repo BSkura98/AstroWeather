@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,7 +39,20 @@ public class LocationDialog extends AppCompatDialogFragment {
                 .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        AstroInformation.setLocation(Double.parseDouble(latitudeEditText.getText().toString()),Double.parseDouble(longitudeEditText.getText().toString()));
+                        if(latitudeEditText.getText().toString().length()!=0
+                                &&longitudeEditText.getText().toString().length()!=0
+                                &&!latitudeEditText.getText().toString().equals(".")
+                                &&!longitudeEditText.getText().toString().equals(".")
+                                &&!latitudeEditText.getText().toString().equals("-")
+                                &&!longitudeEditText.getText().toString().equals("-")
+                                &&!(Double.parseDouble(latitudeEditText.getText().toString())>90)
+                                &&!(Double.parseDouble(latitudeEditText.getText().toString())<-90)
+                                &&!(Double.parseDouble(longitudeEditText.getText().toString())>180)
+                                &&!(Double.parseDouble(longitudeEditText.getText().toString())<-180)){
+                            AstroInformation.setLocation(Double.parseDouble(latitudeEditText.getText().toString()),Double.parseDouble(longitudeEditText.getText().toString()));
+                        }else{
+                            Toast.makeText(getContext(),"Error: Incorrect data", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 

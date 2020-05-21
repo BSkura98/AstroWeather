@@ -48,6 +48,7 @@ public class SunFragment extends Fragment {
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", new Locale("pl", "PL"));
                 sdf.setTimeZone(TimeZone.getTimeZone("GMT+2"));
                 currentTime1.setText(sdf.format(new Date()));
+                //currentTime1.setTextSize
                 someHandler.postDelayed(this, 10);
             }
         }, 10);
