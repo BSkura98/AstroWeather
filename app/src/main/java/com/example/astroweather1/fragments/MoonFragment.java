@@ -21,11 +21,11 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import static android.os.Looper.getMainLooper;
 
 public class MoonFragment extends Fragment {
-    private TextView moonriseTextView, moonsetTextView, newMoonTextView, fullMoonTextView, moonPhaseTextView, moonAgeTextView, currentTime2, textView13, latitudeTextView, longitudeTextView;
+    private TextView moonriseTextView, moonsetTextView, newMoonTextView, fullMoonTextView, moonPhaseTextView, moonAgeTextView, currentTime2, textView13;
     private Calendar currentDate;
+    private Handler handler;
 
     @Nullable
     @Override
@@ -38,63 +38,73 @@ public class MoonFragment extends Fragment {
         fullMoonTextView = rootView.findViewById(R.id.fullMoonTextView);
         moonPhaseTextView = rootView.findViewById(R.id.moonPhaseTextView);
         moonAgeTextView = rootView.findViewById(R.id.moonAgeTextView);
-        currentTime2 = rootView.findViewById(R.id.currentTimeTextView);
-        latitudeTextView = rootView.findViewById(R.id.latitudeTextView);
-        longitudeTextView = rootView.findViewById(R.id.longitudeTextView);
+        currentTime2 = rootView.findViewById(R.id.currentTime2TextView);
         currentDate = Calendar.getInstance();
         AstroInformation.initializeAstroCalculator(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH)+1, currentDate.get(Calendar.DAY_OF_MONTH), currentDate.get(Calendar.HOUR), currentDate.get(Calendar.MINUTE), currentDate.get(Calendar.SECOND));
         setData();
-        final Handler someHandler = new Handler(getMainLooper());
+
         if(getResources().getConfiguration().orientation== Configuration.ORIENTATION_LANDSCAPE){
             currentTime2.setText("");
             textView13 = rootView.findViewById(R.id.textView13);
             textView13.setText("");
-            latitudeTextView.setText("");
-            longitudeTextView.setText("");
-        }else{
-            latitudeTextView.setText("Latitude: "+ AstroInformation.getLocation().getLatitude());
-            longitudeTextView.setText("Longitude: "+ AstroInformation.getLocation().getLongitude());
-            someHandler.postDelayed(new Runnable() {
+        }
+
+        return rootView;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        handler = new Handler();
+        if(getResources().getConfiguration().orientation!= Configuration.ORIENTATION_LANDSCAPE){
+            handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", new Locale("pl", "PL"));
-                    sdf.setTimeZone(TimeZone.getTimeZone("GMT+2"));
-                    currentTime2.setText(sdf.format(new Date()));
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss", new Locale("pl", "PL"));
+                    simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+2"));
+                    currentTime2.setText(simpleDateFormat.format(new Date()));
 
-                    someHandler.postDelayed(this, 10);
+                    handler.postDelayed(this, 1000);
                 }
             }, 10);
         }
 
-        someHandler.postDelayed(new Runnable() {
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                someHandler.postDelayed(this, 60 * AstroInformation.getRefreshTime());
+                handler.postDelayed(this, 1000 * AstroInformation.getRefreshTime());
 
                 AstroInformation.initializeAstroCalculator(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH)+1, currentDate.get(Calendar.DAY_OF_MONTH), currentDate.get(Calendar.HOUR), currentDate.get(Calendar.MINUTE), currentDate.get(Calendar.SECOND));
                 setData();
 
             }
         }, 10);
+    }
 
-        return rootView;
+    @Override
+    public void onPause(){
+        super.onPause();
+        handler.removeCallbacksAndMessages(null);
     }
 
     public void setData(){
-        int month, day, hour, minute;
-        hour = AstroInformation.getMoonInfo().getMoonrise().getHour();
-        minute = AstroInformation.getMoonInfo().getMoonrise().getMinute();
-        moonriseTextView.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
-        hour = AstroInformation.getMoonInfo().getMoonset().getHour();
-        minute = AstroInformation.getMoonInfo().getMoonset().getMinute();
-        moonsetTextView.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
-        month = AstroInformation.getMoonInfo().getNextNewMoon().getMonth();
-        day = AstroInformation.getMoonInfo().getNextNewMoon().getDay();
-        newMoonTextView.setText(AstroInformation.getMoonInfo().getNextNewMoon().getYear()+"."+(month<10?"0":"")+month+"."+(day<10?"0":"")+day);
-        month = AstroInformation.getMoonInfo().getNextFullMoon().getMonth();
-        day = AstroInformation.getMoonInfo().getNextFullMoon().getDay();
-        fullMoonTextView.setText(AstroInformation.getMoonInfo().getNextFullMoon().getYear()+"."+(month<10?"0":"")+month+"."+(day<10?"0":"")+day);
-        moonPhaseTextView.setText(String.format( "%.2f", AstroInformation.getMoonInfo().getIllumination()*100)+"%");
-        moonAgeTextView.setText(String.format( "%.0f", AstroInformation.getMoonInfo().getAge()));
+        try{
+            int month, day, hour, minute;
+            hour = AstroInformation.getMoonInfo().getMoonrise().getHour();
+            minute = AstroInformation.getMoonInfo().getMoonrise().getMinute();
+            moonriseTextView.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
+            hour = AstroInformation.getMoonInfo().getMoonset().getHour();
+            minute = AstroInformation.getMoonInfo().getMoonset().getMinute();
+            moonsetTextView.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
+            month = AstroInformation.getMoonInfo().getNextNewMoon().getMonth();
+            day = AstroInformation.getMoonInfo().getNextNewMoon().getDay();
+            newMoonTextView.setText(AstroInformation.getMoonInfo().getNextNewMoon().getYear()+"."+(month<10?"0":"")+month+"."+(day<10?"0":"")+day);
+            month = AstroInformation.getMoonInfo().getNextFullMoon().getMonth();
+            day = AstroInformation.getMoonInfo().getNextFullMoon().getDay();
+            fullMoonTextView.setText(AstroInformation.getMoonInfo().getNextFullMoon().getYear()+"."+(month<10?"0":"")+month+"."+(day<10?"0":"")+day);
+            moonPhaseTextView.setText(String.format( "%.2f", AstroInformation.getMoonInfo().getIllumination()*100)+"%");
+            moonAgeTextView.setText(String.format( "%.0f", AstroInformation.getMoonInfo().getAge()));
+        }catch (NullPointerException e){}
     }
 }

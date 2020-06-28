@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +27,7 @@ import static android.os.Looper.getMainLooper;
 public class SunFragment extends Fragment {
     private TextView sunriseTextView, sunsetTextView, azimuthRiseTextView, azimuthSetTextView, twilightTextView, dawnTextView, currentTime1, latitudeTextView, longitudeTextView;
     private Calendar currentDate;
+    private Handler handler;
 
     @Nullable
     @Override
@@ -38,7 +40,7 @@ public class SunFragment extends Fragment {
         azimuthSetTextView = rootView.findViewById(R.id.azimuthSetTextView);
         twilightTextView = rootView.findViewById(R.id.twilightTextView);
         dawnTextView = rootView.findViewById(R.id.dawnTextView);
-        currentTime1 = rootView.findViewById(R.id.currentTimeTextView);
+        currentTime1 = rootView.findViewById(R.id.currentTime1TextView);
         latitudeTextView = rootView.findViewById(R.id.latitudeTextView);
         latitudeTextView.setText("Latitude: "+ AstroInformation.getLocation().getLatitude());
         longitudeTextView = rootView.findViewById(R.id.longitudeTextView);
@@ -46,47 +48,62 @@ public class SunFragment extends Fragment {
         currentDate = Calendar.getInstance();
         AstroInformation.initializeAstroCalculator(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH)+1, currentDate.get(Calendar.DAY_OF_MONTH), currentDate.get(Calendar.HOUR), currentDate.get(Calendar.MINUTE), currentDate.get(Calendar.SECOND));
         setData();
-        final Handler someHandler = new Handler(getMainLooper());
-        someHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", new Locale("pl", "PL"));
-                sdf.setTimeZone(TimeZone.getTimeZone("GMT+2"));
-                currentTime1.setText(sdf.format(new Date()));
-                //currentTime1.setTextSize
-                someHandler.postDelayed(this, 10);
-            }
-        }, 10);
 
-        someHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {//TODO dobrze byłoby to zrobić tak, żeby to było wspólne dla MoonFragment,a  także żeby po zmianie refreshtime od razu się zaktualizowało
-                someHandler.postDelayed(this, 60 * AstroInformation.getRefreshTime());
-
-                AstroInformation.initializeAstroCalculator(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH)+1, currentDate.get(Calendar.DAY_OF_MONTH), currentDate.get(Calendar.HOUR), currentDate.get(Calendar.MINUTE), currentDate.get(Calendar.SECOND));
-                setData();
-
-            }
-        }, 10);
 
         return rootView;
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss", new Locale("pl", "PL"));
+                simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+2"));
+                currentTime1.setText(simpleDateFormat.format(new Date()));
+                handler.postDelayed(this, 1000);
+            }
+        }, 10);
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                handler.postDelayed(this, 1000 * AstroInformation.getRefreshTime());
+
+                AstroInformation.initializeAstroCalculator(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH)+1, currentDate.get(Calendar.DAY_OF_MONTH), currentDate.get(Calendar.HOUR), currentDate.get(Calendar.MINUTE), currentDate.get(Calendar.SECOND));
+                setData();
+            }
+        }, 10);
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        handler.removeCallbacksAndMessages(null);
+    }
+
     public void setData(){
-        int hour, minute;
-        hour = AstroInformation.getSunInfo().getSunrise().getHour();
-        minute = AstroInformation.getSunInfo().getSunrise().getMinute();
-        sunriseTextView.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
-        hour = AstroInformation.getSunInfo().getSunset().getHour();
-        minute = AstroInformation.getSunInfo().getSunset().getMinute();
-        sunsetTextView.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
-        azimuthRiseTextView.setText(String.format( "%.2f", AstroInformation.getSunInfo().getAzimuthRise())+"°");
-        azimuthSetTextView.setText(String.format( "%.2f", AstroInformation.getSunInfo().getAzimuthSet())+"°");
-        hour = AstroInformation.getSunInfo().getTwilightEvening().getHour();
-        minute = AstroInformation.getSunInfo().getTwilightEvening().getMinute();
-        twilightTextView.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
-        hour = AstroInformation.getSunInfo().getTwilightMorning().getHour();
-        minute = AstroInformation.getSunInfo().getTwilightMorning().getMinute();
-        dawnTextView.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
+        try{
+            int hour, minute;
+            hour = AstroInformation.getSunInfo().getSunrise().getHour();
+            minute = AstroInformation.getSunInfo().getSunrise().getMinute();
+            sunriseTextView.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
+            hour = AstroInformation.getSunInfo().getSunset().getHour();
+            minute = AstroInformation.getSunInfo().getSunset().getMinute();
+            sunsetTextView.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
+            azimuthRiseTextView.setText(String.format( "%.2f", AstroInformation.getSunInfo().getAzimuthRise())+"°");
+            azimuthSetTextView.setText(String.format( "%.2f", AstroInformation.getSunInfo().getAzimuthSet())+"°");
+            hour = AstroInformation.getSunInfo().getTwilightEvening().getHour();
+            minute = AstroInformation.getSunInfo().getTwilightEvening().getMinute();
+            twilightTextView.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
+            hour = AstroInformation.getSunInfo().getTwilightMorning().getHour();
+            minute = AstroInformation.getSunInfo().getTwilightMorning().getMinute();
+            dawnTextView.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
+            latitudeTextView.setText("Latitude: "+ AstroInformation.getLocation().getLatitude());
+            longitudeTextView.setText("Longitude: "+ AstroInformation.getLocation().getLongitude());
+        }catch (NullPointerException e){}
     }
 }

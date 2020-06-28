@@ -5,7 +5,7 @@ import com.astrocalculator.AstroDateTime;
 
 public class AstroInformation {
     private static AstroCalculator astroCalculator;
-    private static AstroCalculator.Location location = new AstroCalculator.Location(0,0);
+    private static AstroCalculator.Location location = new AstroCalculator.Location(51,19);
     private static int refreshTime = 15;
 
     public static void setLocation(double latitude, double longitude){

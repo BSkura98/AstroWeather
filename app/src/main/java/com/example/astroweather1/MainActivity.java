@@ -1,12 +1,13 @@
 package com.example.astroweather1;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
-import com.example.astroweather1.dialogs.LocationDialog;
-import com.example.astroweather1.dialogs.RefreshTimeDialog;
 import com.example.astroweather1.fragments.MoonFragment;
 import com.example.astroweather1.fragments.SunFragment;
+import com.example.astroweather1.settings.LocalizationSettingsActivity;
+import com.example.astroweather1.settings.RefreshTimeSettingsActivity;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.widget.Toolbar;
@@ -23,41 +24,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private SunFragment sunFragment;
+    private MoonFragment moonFragment;
+    private BasicDataFragment basicDataFragment;
+    private AdditionalDataFragment additionalDataFragment;
+    private UpcomingDaysFragment upcomingDaysFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Ustawianie lokalizacji oraz domyślnego czasu odświeżania informacji
-        AstroInformation.setLocation(51,19);
-        AstroInformation.setRefreshTime(15);
+        sunFragment = new SunFragment();
+        moonFragment = new MoonFragment();
+        basicDataFragment = new BasicDataFragment();
+        additionalDataFragment = new AdditionalDataFragment();
+        upcomingDaysFragment = new UpcomingDaysFragment();
 
-        if(getResources().getConfiguration().orientation== Configuration.ORIENTATION_LANDSCAPE){
-            SunFragment sunFragment = new SunFragment();
-            MoonFragment moonFragment = new MoonFragment();
+        List<Fragment> list = new ArrayList<>();
+        list.add(sunFragment);
+        list.add(moonFragment);
+        list.add(basicDataFragment);
+        list.add(additionalDataFragment);
+        list.add(upcomingDaysFragment);
 
-            Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container_a,sunFragment)
-                    .replace(R.id.container_b, moonFragment)
-                    .commit();
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        }else{
-            List<Fragment> list = new ArrayList<>();
-            list.add(new SunFragment());
-            list.add(new MoonFragment());
-
-            Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-            SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(),list);
-
-            ViewPager viewPager = findViewById(R.id.view_pager);
-            viewPager.setAdapter(sectionsPagerAdapter);
-            TabLayout tabs = findViewById(R.id.tabs);
-            tabs.setupWithViewPager(viewPager);
-        }
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(),list);
+        ViewPager viewPager = findViewById(R.id.view_pager);
+        viewPager.setAdapter(sectionsPagerAdapter);
+        TabLayout tabs = findViewById(R.id.tabs);
+        tabs.setupWithViewPager(viewPager);
     }
 
     @Override
@@ -68,14 +66,15 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.refresh_time_settings:
-                RefreshTimeDialog refreshTimeDialog = new RefreshTimeDialog();
-                refreshTimeDialog.show(getSupportFragmentManager(), "refreshTimeDialog");
+                intent = new Intent(this, RefreshTimeSettingsActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.localization_settings:
-                LocationDialog locationDialog = new LocationDialog();
-                locationDialog.show(getSupportFragmentManager(), "locationDialog");
+                intent = new Intent(this, LocalizationSettingsActivity.class);
+                startActivity(intent);
                 return true;
         }
 
