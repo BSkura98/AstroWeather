@@ -1,12 +1,20 @@
 package com.example.astroweather1;
 
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.example.astroweather1.weather.WeatherInformation;
+import com.example.astroweather1.weather.WeatherInformationJsonParser;
+import com.example.astroweather1.weather.WeatherRequestSender;
 
 
 /**
@@ -23,6 +31,9 @@ public class BasicDataFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    TextView cityTextView, temperatureTextView;
+    WeatherInformation weatherInformation;
 
     public BasicDataFragment() {
         // Required empty public constructor
@@ -46,6 +57,7 @@ public class BasicDataFragment extends Fragment {
         return fragment;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,10 +67,27 @@ public class BasicDataFragment extends Fragment {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_basic_data, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_basic_data, container, false);
+        cityTextView = view.findViewById(R.id.cityTextView);
+        temperatureTextView = view.findViewById(R.id.temperatureTextView);
+        weatherInformation = new WeatherInformation();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    WeatherInformationJsonParser.parse(WeatherRequestSender.send(), weatherInformation);
+                    cityTextView.setText(weatherInformation.getCity());
+                    temperatureTextView.setText(weatherInformation.getTemperature());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+        return view;
     }
 }
