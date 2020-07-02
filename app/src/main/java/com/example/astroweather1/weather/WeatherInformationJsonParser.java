@@ -18,6 +18,9 @@ public class WeatherInformationJsonParser {
         WeatherInformation.setHumidity(obj.getJSONObject("current_observation").getJSONObject("atmosphere").getInt("humidity"));
         WeatherInformation.setVisibility(obj.getJSONObject("current_observation").getJSONObject("atmosphere").getDouble("visibility"));
         JSONArray array = obj.getJSONArray("forecasts");
+        for(int i=0;i<array.length();i++){
+            WeatherInformation.addDay(new WeatherSimpleInformation(((JSONObject)array.get(i)).getString("day"),((JSONObject)array.get(i)).getInt("low"),((JSONObject)array.get(i)).getInt("high"), ((JSONObject)array.get(i)).getString("text")));
+        }
         /*Iterator iterator = array.iterator();
         while(iterator.hasNext()){
             obj = (JSONObject)iterator.next();

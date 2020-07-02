@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.example.astroweather1.weather.WeatherInformation;
 
 
 /**
@@ -23,6 +26,8 @@ public class AdditionalDataFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private TextView cityTextView, windDirectionTextView, windSpeedTextView, humidityTextView, visibilityTextView;
 
     public AdditionalDataFragment() {
         // Required empty public constructor
@@ -56,9 +61,20 @@ public class AdditionalDataFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_additional_data, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_additional_data, container, false);
+        cityTextView = view.findViewById(R.id.cityTextView);
+        windDirectionTextView = view.findViewById(R.id.windDirectionTextView);
+        windSpeedTextView = view.findViewById(R.id.windSpeedTextView);
+        humidityTextView = view.findViewById(R.id.humidityTextView);
+        visibilityTextView = view.findViewById(R.id.visibilityTextView);
+
+        cityTextView.setText(WeatherInformation.getCity());
+        windDirectionTextView.setText("Wind direction: "+Integer.toString(WeatherInformation.getWindDirection()));
+        windSpeedTextView.setText("Wind speed: "+Double.toString(WeatherInformation.getWindSpeed()));
+        humidityTextView.setText("Humidity: "+Integer.toString(WeatherInformation.getHumidity()));
+        visibilityTextView.setText("Visibility: "+Double.toString(WeatherInformation.getVisibility()));
+
+        return view;
     }
 }
