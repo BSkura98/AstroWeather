@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.astroweather1.weather.WeatherInformation;
 import com.example.astroweather1.weather.WeatherInformationJsonParser;
 import com.example.astroweather1.weather.WeatherRequestSender;
+import com.example.astroweather1.weather.WeatherRequestSender1;
 
 
 /**
@@ -32,8 +33,7 @@ public class BasicDataFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    TextView cityTextView, temperatureTextView;
-    WeatherInformation weatherInformation;
+    TextView cityTextView, temperatureTextView, descriptionTextView, pressureTextView, timeTextView, latitudeTextView, longitudeTextView;
 
     public BasicDataFragment() {
         // Required empty public constructor
@@ -74,20 +74,18 @@ public class BasicDataFragment extends Fragment {
         // Inflate the layout for this fragment
         cityTextView = view.findViewById(R.id.cityTextView);
         temperatureTextView = view.findViewById(R.id.temperatureTextView);
-        weatherInformation = new WeatherInformation();
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    WeatherInformationJsonParser.parse(WeatherRequestSender.send(), weatherInformation);
-                    cityTextView.setText(weatherInformation.getCity());
-                    temperatureTextView.setText(weatherInformation.getTemperature());
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });
-        thread.start();
+        descriptionTextView = view.findViewById(R.id.descriptionTextView);
+        pressureTextView = view.findViewById(R.id.pressureTextView);
+        latitudeTextView = view.findViewById(R.id.latitudeTextView);
+        longitudeTextView = view.findViewById(R.id.longitudeTextView);
+
+        cityTextView.setText(WeatherInformation.getCity());
+        temperatureTextView.setText("Temperature: "+Integer.toString(WeatherInformation.getTemperature()));
+        descriptionTextView.setText("Description: "+WeatherInformation.getDescription());
+        pressureTextView.setText("Pressure: "+Double.toString(WeatherInformation.getPressure()));
+        latitudeTextView.setText("Latitude: "+ Double.toString(WeatherInformation.getLatitude()));
+        longitudeTextView.setText("Longitude: "+Double.toString(WeatherInformation.getLongitude()));
+
         return view;
     }
 }

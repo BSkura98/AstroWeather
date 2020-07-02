@@ -7,6 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.example.astroweather1.weather.WeatherInformationJsonParser;
+
 public class MainActivity extends AppCompatActivity {
     Button astroButton, weatherButton;
 
@@ -14,6 +19,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        ExampleRequestManager requestManager = ExampleRequestManager.getInstance(this);
+        ExampleRequest request = new ExampleRequest(Request.Method.GET, null, null, new Response.Listener() {
+            @Override
+            public void onResponse(Object response) {
+                System.out.println(response.toString());
+                try{
+                    WeatherInformationJsonParser.parse(response.toString());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                // Add success logic here
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Add error handling here
+            }
+        });
+        requestManager.addToRequestQueue(request);
 
         astroButton =findViewById(R.id.astroButton);
         weatherButton = findViewById(R.id.weatherButton);

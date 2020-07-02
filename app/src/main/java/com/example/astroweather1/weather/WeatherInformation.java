@@ -4,105 +4,105 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WeatherInformation {
-    String city="";
-    double latitude=0;
-    double longitude=0;
-    int temperature=0;
-    double pressure=0;
-    String description="";
-    double windSpeed=0;
-    int windDirection=0;
-    int humidity=0;
-    double visibility=0;
-    List<WeatherSimpleInformation> days=new ArrayList<>();
+    static String city="";
+    static double latitude=0;
+    static double longitude=0;
+    static int temperature=0;
+    static double pressure=0;
+    static String description="";
+    static double windSpeed=0;
+    static int windDirection=0;
+    static int humidity=0;
+    static double visibility=0;
+    static List<WeatherSimpleInformation> days=new ArrayList<>();
 
-    public WeatherInformation(){}
+    //public WeatherInformation(){}
 
-    public String getCity() {
+    public static String getCity() {
         return city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public static void setCity(String city) {
+        WeatherInformation.city = city;
     }
 
-    public double getLatitude() {
+    public static double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
+    public static void setLatitude(double latitude) {
+        WeatherInformation.latitude = latitude;
     }
 
-    public double getLongitude() {
+    public static double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
+    public static void setLongitude(double longitude) {
+        WeatherInformation.longitude = longitude;
     }
 
-    public int getTemperature() {
+    public static int getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(int temperature) {
-        this.temperature = temperature;
+    public static void setTemperature(int temperature) {
+        WeatherInformation.temperature = temperature;
     }
 
-    public double getPressure() {
+    public static double getPressure() {
         return pressure;
     }
 
-    public void setPressure(double pressure) {
-        this.pressure = pressure;
+    public static void setPressure(double pressure) {
+        WeatherInformation.pressure = pressure;
     }
 
-    public String getDescription() {
+    public static String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public static void setDescription(String description) {
+        WeatherInformation.description = description;
     }
 
-    public double getWindSpeed() {
+    public static double getWindSpeed() {
         return windSpeed;
     }
 
-    public void setWindSpeed(double windSpeed) {
-        this.windSpeed = windSpeed;
+    public static void setWindSpeed(double windSpeed) {
+        WeatherInformation.windSpeed = windSpeed;
     }
 
-    public int getWindDirection() {
+    public static int getWindDirection() {
         return windDirection;
     }
 
-    public void setWindDirection(int windDirection) {
-        this.windDirection = windDirection;
+    public static void setWindDirection(int windDirection) {
+        WeatherInformation.windDirection = windDirection;
     }
 
-    public int getHumidity() {
+    public static int getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(int humidity) {
-        this.humidity = humidity;
+    public static void setHumidity(int humidity) {
+        WeatherInformation.humidity = humidity;
     }
 
-    public double getVisibility() {
+    public static double getVisibility() {
         return visibility;
     }
 
-    public void setVisibility(double visibility) {
-        this.visibility = visibility;
+    public static void setVisibility(double visibility) {
+        WeatherInformation.visibility = visibility;
     }
 
-    public void addDay(WeatherSimpleInformation day){
+    public static void addDay(WeatherSimpleInformation day){
         days.add(day);
     }
 
-    public List<WeatherSimpleInformation> getDays() {
+    public static List<WeatherSimpleInformation> getDays() {
         return days;
     }
 }
