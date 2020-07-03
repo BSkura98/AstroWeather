@@ -78,6 +78,12 @@ public class BasicDataFragment extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
+        cityTextView.setText(WeatherInformation.getCity());
+        temperatureTextView.setText("Temperature: "+Integer.toString(WeatherInformation.getTemperature()));
+        descriptionTextView.setText("Description: "+WeatherInformation.getDescription());
+        pressureTextView.setText("Pressure: "+Double.toString(WeatherInformation.getPressure()));
+        latitudeTextView.setText("Latitude: "+ Double.toString(WeatherInformation.getLatitude()));
+        longitudeTextView.setText("Longitude: "+Double.toString(WeatherInformation.getLongitude()));
 
         handler = new Handler();
         handler.postDelayed(new Runnable() {

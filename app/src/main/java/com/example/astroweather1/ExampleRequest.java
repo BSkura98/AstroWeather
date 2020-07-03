@@ -27,8 +27,13 @@ public class ExampleRequest<T> extends JsonRequest<T> {
     final String CONSUMER_SECRET = "8962ec20db5d726bab8dc2cff9bb089db28ba42f";
     final String baseUrl = "https://weather-ydn-yql.media.yahoo.com/forecastrss";
 
-    public ExampleRequest(int method, String url, String requestBody, Response.Listener<T> listener, Response.ErrorListener errorListener) {
+    String city = "sunnyvale";
+
+    public ExampleRequest(int method, String url, String requestBody, String city, Response.Listener<T> listener, Response.ErrorListener errorListener) {
         super(method, url, requestBody, listener, errorListener);
+        if(city!=null){
+            this.city = city;
+        }
     }
 
     @Override
@@ -39,6 +44,7 @@ public class ExampleRequest<T> extends JsonRequest<T> {
         OAuthAccessor accessor = new OAuthAccessor(consumer);
         try {
             OAuthMessage request = accessor.newRequestMessage(OAuthMessage.GET, getUrl(), null);
+            System.out.println(getUrl());
             String authorization = request.getAuthorizationHeader(null);
             headers.put("Authorization", authorization);
         } catch (OAuthException |IOException | URISyntaxException e) {
@@ -52,7 +58,7 @@ public class ExampleRequest<T> extends JsonRequest<T> {
 
     @Override
     public String getUrl() {
-        return baseUrl + "?location=sunnyvale,ca&format=json";
+        return baseUrl + "?location="+city+"&format=json";
     }
 
     @Override
@@ -72,5 +78,9 @@ public class ExampleRequest<T> extends JsonRequest<T> {
 
     private T parseResponse(String jsonObject) {
         return (T)jsonObject; // Add response parsing here
+    }
+
+    public void setCity(String city){
+        this.city = city;
     }
 }

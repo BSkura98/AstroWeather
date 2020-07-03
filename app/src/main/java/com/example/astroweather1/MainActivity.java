@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
 
         ExampleRequestManager requestManager = ExampleRequestManager.getInstance(this);
-        ExampleRequest request = new ExampleRequest(Request.Method.GET, null, null, new Response.Listener() {
+        ExampleRequest request = new ExampleRequest(Request.Method.GET, null, null, null, new Response.Listener() {
             @Override
             public void onResponse(Object response) {
                 System.out.println(response.toString());

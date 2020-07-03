@@ -14,6 +14,11 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.example.astroweather1.weather.WeatherInformationJsonParser;
+
 import java.util.ArrayList;
 
 public class CitiesListActivity extends AppCompatActivity {
@@ -21,6 +26,7 @@ public class CitiesListActivity extends AppCompatActivity {
     private ListView listView;
     Button addCityButton;
     EditText cityEditText;
+    ExampleRequestManager requestManager = ExampleRequestManager.getInstance(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +76,31 @@ public class CitiesListActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         //set an onItemClickListener to the ListView
-        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String name = adapterView.getItemAtPosition(i).toString();
+                System.out.println(name.toLowerCase());
+                ExampleRequest request = new ExampleRequest(Request.Method.GET, null, null, name, new Response.Listener() {
+                    @Override
+                    public void onResponse(Object response) {
+                        System.out.println(response.toString());
+                        try{
+                            WeatherInformationJsonParser.parse(response.toString());
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        // Add success logic here
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Add error handling here
+                    }
+                });
+                requestManager.addToRequestQueue(request);
 
-                Cursor data = databaseHelper.getItemID(name); //get the id associated with that name
+                /*Cursor data = databaseHelper.getItemID(name); //get the id associated with that name
                 int itemID = -1;
                 while(data.moveToNext()){
                     itemID = data.getInt(0);
@@ -88,9 +113,9 @@ public class CitiesListActivity extends AppCompatActivity {
                 }
                 else{
                     toastMessage("No ID associated with that name");
-                }
+                }*/
             }
-        });*/
+        });
     }
 
     private void toastMessage(String message){

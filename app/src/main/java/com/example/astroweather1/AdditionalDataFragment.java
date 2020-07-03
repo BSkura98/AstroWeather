@@ -4,12 +4,19 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.astroweather1.weather.WeatherInformation;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 
 /**
@@ -76,5 +83,16 @@ public class AdditionalDataFragment extends Fragment {
         visibilityTextView.setText("Visibility: "+Double.toString(WeatherInformation.getVisibility()));
 
         return view;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        cityTextView.setText(WeatherInformation.getCity());
+        windDirectionTextView.setText("Wind direction: "+Integer.toString(WeatherInformation.getWindDirection()));
+        windSpeedTextView.setText("Wind speed: "+Double.toString(WeatherInformation.getWindSpeed()));
+        humidityTextView.setText("Humidity: "+Integer.toString(WeatherInformation.getHumidity()));
+        visibilityTextView.setText("Visibility: "+Double.toString(WeatherInformation.getVisibility()));
+
     }
 }
