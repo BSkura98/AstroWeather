@@ -44,7 +44,7 @@ public class WeatherActivity extends AppCompatActivity {
         list.add(additionalDataFragment);
         list.add(upcomingDaysFragment);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(),list);
@@ -56,7 +56,7 @@ public class WeatherActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.setting_menu, menu);
+        getMenuInflater().inflate(R.menu.weather_setting_menu, menu);
         return true;
     }
 
@@ -64,13 +64,11 @@ public class WeatherActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
         switch (item.getItemId()) {
-            case R.id.refresh_time_settings:
-                intent = new Intent(this, RefreshTimeSettingsActivity.class);
+            case R.id.change_city:
+                intent = new Intent(this, CitiesListActivity.class);
                 startActivity(intent);
-                return true;
-            case R.id.localization_settings:
-                intent = new Intent(this, LocalizationSettingsActivity.class);
-                startActivity(intent);
+                //intent = new Intent(this, RefreshTimeSettingsActivity.class);
+                //startActivity(intent);
                 return true;
         }
 
