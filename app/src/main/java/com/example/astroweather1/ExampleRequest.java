@@ -83,4 +83,8 @@ public class ExampleRequest<T> extends JsonRequest<T> {
     public void setCity(String city){
         this.city = city;
     }
+
+    public String getCity(){
+        return city;
+    }
 }

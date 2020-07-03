@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.astroweather1.weather.WeatherInformation;
 import com.example.astroweather1.weather.WeatherInformationJsonParser;
 
 import java.util.ArrayList;
@@ -54,7 +55,31 @@ public class CitiesListActivity extends AppCompatActivity {
     }
 
     public void AddData(String newEntry) {
-        boolean insertData = databaseHelper.addData(newEntry);
+        final ExampleRequest request = new ExampleRequest(Request.Method.GET, null, null, newEntry, new Response.Listener() {
+            @Override
+            public void onResponse(Object response) {
+                System.out.println("Response: "+response.toString());
+                try{
+                    WeatherInformationJsonParser.parse(response.toString());
+                    addToDatabase(WeatherInformation.getCity());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                // Add success logic here
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("Error");
+                toastMessage("Something went wrong");
+                // Add error handling here
+            }
+        });
+        requestManager.addToRequestQueue(request);
+    }
+
+    private void addToDatabase(String city){
+        boolean insertData = databaseHelper.addData(city);
 
         if (insertData) {
             Toast.makeText(this,"Data Successfully Inserted!", Toast.LENGTH_SHORT).show();
