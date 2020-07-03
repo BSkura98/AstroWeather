@@ -24,7 +24,7 @@ import java.util.TimeZone;
  * Use the {@link AdditionalDataFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AdditionalDataFragment extends Fragment {
+public class AdditionalDataFragment extends Fragment implements UpdateData{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -76,11 +76,7 @@ public class AdditionalDataFragment extends Fragment {
         humidityTextView = view.findViewById(R.id.humidityTextView);
         visibilityTextView = view.findViewById(R.id.visibilityTextView);
 
-        cityTextView.setText(WeatherInformation.getCity());
-        windDirectionTextView.setText("Wind direction: "+Integer.toString(WeatherInformation.getWindDirection()));
-        windSpeedTextView.setText("Wind speed: "+Double.toString(WeatherInformation.getWindSpeed()));
-        humidityTextView.setText("Humidity: "+Integer.toString(WeatherInformation.getHumidity()));
-        visibilityTextView.setText("Visibility: "+Double.toString(WeatherInformation.getVisibility()));
+        updateData();
 
         return view;
     }
@@ -88,11 +84,15 @@ public class AdditionalDataFragment extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
+        updateData();
+    }
+
+    @Override
+    public void updateData(){
         cityTextView.setText(WeatherInformation.getCity());
         windDirectionTextView.setText("Wind direction: "+Integer.toString(WeatherInformation.getWindDirection()));
         windSpeedTextView.setText("Wind speed: "+Double.toString(WeatherInformation.getWindSpeed()));
         humidityTextView.setText("Humidity: "+Integer.toString(WeatherInformation.getHumidity()));
         visibilityTextView.setText("Visibility: "+Double.toString(WeatherInformation.getVisibility()));
-
     }
 }

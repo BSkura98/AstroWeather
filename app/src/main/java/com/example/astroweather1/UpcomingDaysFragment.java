@@ -20,7 +20,7 @@ import java.util.List;
  * Use the {@link UpcomingDaysFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UpcomingDaysFragment extends Fragment {
+public class UpcomingDaysFragment extends Fragment implements UpdateData{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -102,41 +102,7 @@ public class UpcomingDaysFragment extends Fragment {
         descriptionTextView6 = view.findViewById(R.id.descriptionTextView6);
         descriptionTextView7 = view.findViewById(R.id.descriptionTextView7);
 
-        List<WeatherSimpleInformation> days = WeatherInformation.getDays();
-        dayTextView.setText(days.get(0).getDay());
-        minTextView.setText(Integer.toString(days.get(0).getMinTemperature()));
-        maxTextView.setText(Integer.toString(days.get(0).getMaxTemperature()));
-        descriptionTextView.setText(days.get(0).getDescription());
-
-        dayTextView2.setText(days.get(1).getDay());
-        minTextView2.setText(Integer.toString(days.get(1).getMinTemperature()));
-        maxTextView2.setText(Integer.toString(days.get(1).getMaxTemperature()));
-        descriptionTextView2.setText(days.get(1).getDescription());
-
-        dayTextView3.setText(days.get(2).getDay());
-        minTextView3.setText(Integer.toString(days.get(2).getMinTemperature()));
-        maxTextView3.setText(Integer.toString(days.get(2).getMaxTemperature()));
-        descriptionTextView3.setText(days.get(2).getDescription());
-
-        dayTextView4.setText(days.get(3).getDay());
-        minTextView4.setText(Integer.toString(days.get(3).getMinTemperature()));
-        maxTextView4.setText(Integer.toString(days.get(3).getMaxTemperature()));
-        descriptionTextView4.setText(days.get(3).getDescription());
-
-        dayTextView5.setText(days.get(4).getDay());
-        minTextView5.setText(Integer.toString(days.get(4).getMinTemperature()));
-        maxTextView5.setText(Integer.toString(days.get(4).getMaxTemperature()));
-        descriptionTextView5.setText(days.get(4).getDescription());
-
-        dayTextView6.setText(days.get(5).getDay());
-        minTextView6.setText(Integer.toString(days.get(5).getMinTemperature()));
-        maxTextView6.setText(Integer.toString(days.get(5).getMaxTemperature()));
-        descriptionTextView6.setText(days.get(5).getDescription());
-
-        dayTextView7.setText(days.get(6).getDay());
-        minTextView7.setText(Integer.toString(days.get(6).getMinTemperature()));
-        maxTextView7.setText(Integer.toString(days.get(6).getMaxTemperature()));
-        descriptionTextView7.setText(days.get(6).getDescription());
+        updateData();
 
         return view;
     }
@@ -144,6 +110,11 @@ public class UpcomingDaysFragment extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
+        updateData();
+    }
+
+    @Override
+    public void updateData(){
         List<WeatherSimpleInformation> days = WeatherInformation.getDays();
         dayTextView.setText(days.get(0).getDay());
         minTextView.setText(Integer.toString(days.get(0).getMinTemperature()));
@@ -179,6 +150,5 @@ public class UpcomingDaysFragment extends Fragment {
         minTextView7.setText(Integer.toString(days.get(6).getMinTemperature()));
         maxTextView7.setText(Integer.toString(days.get(6).getMaxTemperature()));
         descriptionTextView7.setText(days.get(6).getDescription());
-
     }
 }

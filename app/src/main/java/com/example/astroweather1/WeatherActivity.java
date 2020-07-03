@@ -1,12 +1,18 @@
 package com.example.astroweather1;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.astroweather1.fragments.MoonFragment;
 import com.example.astroweather1.fragments.SunFragment;
 import com.example.astroweather1.settings.LocalizationSettingsActivity;
 import com.example.astroweather1.settings.RefreshTimeSettingsActivity;
+import com.example.astroweather1.weather.WeatherInformation;
+import com.example.astroweather1.weather.WeatherInformationJsonParser;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
@@ -19,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.astroweather1.ui.main.SectionsPagerAdapter;
 
@@ -29,6 +36,7 @@ public class WeatherActivity extends AppCompatActivity {
     private BasicDataFragment basicDataFragment;
     private AdditionalDataFragment additionalDataFragment;
     private UpcomingDaysFragment upcomingDaysFragment;
+    private List<Fragment> fragments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +47,15 @@ public class WeatherActivity extends AppCompatActivity {
         additionalDataFragment = new AdditionalDataFragment();
         upcomingDaysFragment = new UpcomingDaysFragment();
 
-        List<Fragment> list = new ArrayList<>();
-        list.add(basicDataFragment);
-        list.add(additionalDataFragment);
-        list.add(upcomingDaysFragment);
+        fragments = new ArrayList<>();
+        fragments.add(basicDataFragment);
+        fragments.add(additionalDataFragment);
+        fragments.add(upcomingDaysFragment);
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
 
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(),list);
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(),fragments);
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
@@ -70,8 +78,39 @@ public class WeatherActivity extends AppCompatActivity {
                 //intent = new Intent(this, RefreshTimeSettingsActivity.class);
                 //startActivity(intent);
                 return true;
+            case R.id.refresh_weather_data:
+                ExampleRequestManager requestManager = ExampleRequestManager.getInstance(this);
+                final Context context = this;
+                final ExampleRequest request = new ExampleRequest(Request.Method.GET, null, null, null, new Response.Listener() {
+                    @Override
+                    public void onResponse(Object response) {
+                        System.out.println("Response: "+response.toString());
+                        try{
+                            WeatherInformationJsonParser.parse(response.toString());
+                            FileOperator.saveFile(response.toString(), context);
+                            for(Fragment fragment:fragments){
+                                ((UpdateData)fragment).updateData();
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        // Add success logic here
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println("Error");
+                        toastMessage("Something went wrong");
+                        // Add error handling here
+                    }
+                });
+                requestManager.addToRequestQueue(request);
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void toastMessage(String message){
+        Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }
 }

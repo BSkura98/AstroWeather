@@ -23,7 +23,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 
-public class BasicDataFragment extends Fragment {
+public class BasicDataFragment extends Fragment implements UpdateData {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -64,12 +64,7 @@ public class BasicDataFragment extends Fragment {
         longitudeTextView = view.findViewById(R.id.longitudeTextView);
         timeTextView = view.findViewById(R.id.timeTextView);
 
-        cityTextView.setText(WeatherInformation.getCity());
-        temperatureTextView.setText("Temperature: "+Integer.toString(WeatherInformation.getTemperature()));
-        descriptionTextView.setText("Description: "+WeatherInformation.getDescription());
-        pressureTextView.setText("Pressure: "+Double.toString(WeatherInformation.getPressure()));
-        latitudeTextView.setText("Latitude: "+ Double.toString(WeatherInformation.getLatitude()));
-        longitudeTextView.setText("Longitude: "+Double.toString(WeatherInformation.getLongitude()));
+        updateData();
         currentDate = Calendar.getInstance();
 
         return view;
@@ -78,12 +73,7 @@ public class BasicDataFragment extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
-        cityTextView.setText(WeatherInformation.getCity());
-        temperatureTextView.setText("Temperature: "+Integer.toString(WeatherInformation.getTemperature()));
-        descriptionTextView.setText("Description: "+WeatherInformation.getDescription());
-        pressureTextView.setText("Pressure: "+Double.toString(WeatherInformation.getPressure()));
-        latitudeTextView.setText("Latitude: "+ Double.toString(WeatherInformation.getLatitude()));
-        longitudeTextView.setText("Longitude: "+Double.toString(WeatherInformation.getLongitude()));
+        updateData();
 
         handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -101,5 +91,15 @@ public class BasicDataFragment extends Fragment {
     public void onPause(){
         super.onPause();
         handler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    public void updateData(){
+        cityTextView.setText(WeatherInformation.getCity());
+        temperatureTextView.setText("Temperature: "+Integer.toString(WeatherInformation.getTemperature()));
+        descriptionTextView.setText("Description: "+WeatherInformation.getDescription());
+        pressureTextView.setText("Pressure: "+Double.toString(WeatherInformation.getPressure()));
+        latitudeTextView.setText("Latitude: "+ Double.toString(WeatherInformation.getLatitude()));
+        longitudeTextView.setText("Longitude: "+Double.toString(WeatherInformation.getLongitude()));
     }
 }
