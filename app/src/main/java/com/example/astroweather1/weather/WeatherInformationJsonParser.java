@@ -2,6 +2,9 @@ package com.example.astroweather1.weather;
 
 import org.json.*;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Iterator;
 
 public class WeatherInformationJsonParser {

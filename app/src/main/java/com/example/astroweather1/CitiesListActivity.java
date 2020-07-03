@@ -2,7 +2,7 @@ package com.example.astroweather1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -55,12 +55,14 @@ public class CitiesListActivity extends AppCompatActivity {
     }
 
     public void AddData(String newEntry) {
+        final Context context = this;
         final ExampleRequest request = new ExampleRequest(Request.Method.GET, null, null, newEntry, new Response.Listener() {
             @Override
             public void onResponse(Object response) {
                 System.out.println("Response: "+response.toString());
                 try{
                     WeatherInformationJsonParser.parse(response.toString());
+                    FileOperator.saveFile(response.toString(), context);
                     addToDatabase(WeatherInformation.getCity());
                 }catch (Exception e){
                     e.printStackTrace();

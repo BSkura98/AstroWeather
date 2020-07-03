@@ -2,6 +2,7 @@ package com.example.astroweather1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
 
         ExampleRequestManager requestManager = ExampleRequestManager.getInstance(this);
+        final Context context = this;
         ExampleRequest request = new ExampleRequest(Request.Method.GET, null, null, null, new Response.Listener() {
             @Override
             public void onResponse(Object response) {
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                FileOperator.readFile(context);
                 // Add error handling here
             }
         });
