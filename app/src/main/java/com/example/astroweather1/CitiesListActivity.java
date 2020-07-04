@@ -65,6 +65,7 @@ public class CitiesListActivity extends AppCompatActivity {
                     WeatherInformationJsonParser.parse(response.toString(), context);
                     //FileOperator.saveFile(response.toString(), context);
                     addToDatabase(WeatherInformation.getCity());
+                    populateListView();
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -116,6 +117,7 @@ public class CitiesListActivity extends AppCompatActivity {
                         System.out.println(response.toString());
                         try{
                             WeatherInformationJsonParser.parse(response.toString(), context);
+                            finish();
                         }catch (Exception e){
                             e.printStackTrace();
                         }
