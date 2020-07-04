@@ -117,38 +117,38 @@ public class UpcomingDaysFragment extends Fragment implements UpdateData{
     public void updateData(){
         List<WeatherSimpleInformation> days = WeatherInformation.getDays();
         dayTextView.setText(days.get(0).getDay());
-        minTextView.setText(Integer.toString(days.get(0).getMinTemperature()));
-        maxTextView.setText(Integer.toString(days.get(0).getMaxTemperature()));
+        minTextView.setText(Integer.toString(days.get(0).getMinTemperature())+"°"+WeatherInformation.getUnit());
+        maxTextView.setText(Integer.toString(days.get(0).getMaxTemperature())+"°"+WeatherInformation.getUnit());
         descriptionTextView.setText(days.get(0).getDescription());
 
         dayTextView2.setText(days.get(1).getDay());
-        minTextView2.setText(Integer.toString(days.get(1).getMinTemperature()));
-        maxTextView2.setText(Integer.toString(days.get(1).getMaxTemperature()));
+        minTextView2.setText(Integer.toString(days.get(1).getMinTemperature())+"°"+WeatherInformation.getUnit());
+        maxTextView2.setText(Integer.toString(days.get(1).getMaxTemperature())+"°"+WeatherInformation.getUnit());
         descriptionTextView2.setText(days.get(1).getDescription());
 
         dayTextView3.setText(days.get(2).getDay());
-        minTextView3.setText(Integer.toString(days.get(2).getMinTemperature()));
-        maxTextView3.setText(Integer.toString(days.get(2).getMaxTemperature()));
+        minTextView3.setText(Integer.toString(days.get(2).getMinTemperature())+"°"+WeatherInformation.getUnit());
+        maxTextView3.setText(Integer.toString(days.get(2).getMaxTemperature())+"°"+WeatherInformation.getUnit());
         descriptionTextView3.setText(days.get(2).getDescription());
 
         dayTextView4.setText(days.get(3).getDay());
-        minTextView4.setText(Integer.toString(days.get(3).getMinTemperature()));
-        maxTextView4.setText(Integer.toString(days.get(3).getMaxTemperature()));
+        minTextView4.setText(Integer.toString(days.get(3).getMinTemperature())+"°"+WeatherInformation.getUnit());
+        maxTextView4.setText(Integer.toString(days.get(3).getMaxTemperature())+"°"+WeatherInformation.getUnit());
         descriptionTextView4.setText(days.get(3).getDescription());
 
         dayTextView5.setText(days.get(4).getDay());
-        minTextView5.setText(Integer.toString(days.get(4).getMinTemperature()));
-        maxTextView5.setText(Integer.toString(days.get(4).getMaxTemperature()));
+        minTextView5.setText(Integer.toString(days.get(4).getMinTemperature())+"°"+WeatherInformation.getUnit());
+        maxTextView5.setText(Integer.toString(days.get(4).getMaxTemperature())+"°"+WeatherInformation.getUnit());
         descriptionTextView5.setText(days.get(4).getDescription());
 
         dayTextView6.setText(days.get(5).getDay());
-        minTextView6.setText(Integer.toString(days.get(5).getMinTemperature()));
-        maxTextView6.setText(Integer.toString(days.get(5).getMaxTemperature()));
+        minTextView6.setText(Integer.toString(days.get(5).getMinTemperature())+"°"+WeatherInformation.getUnit());
+        maxTextView6.setText(Integer.toString(days.get(5).getMaxTemperature())+"°"+WeatherInformation.getUnit());
         descriptionTextView6.setText(days.get(5).getDescription());
 
         dayTextView7.setText(days.get(6).getDay());
-        minTextView7.setText(Integer.toString(days.get(6).getMinTemperature()));
-        maxTextView7.setText(Integer.toString(days.get(6).getMaxTemperature()));
+        minTextView7.setText(Integer.toString(days.get(6).getMinTemperature())+"°"+WeatherInformation.getUnit());
+        maxTextView7.setText(Integer.toString(days.get(6).getMaxTemperature())+"°"+WeatherInformation.getUnit());
         descriptionTextView7.setText(days.get(6).getDescription());
     }
 }

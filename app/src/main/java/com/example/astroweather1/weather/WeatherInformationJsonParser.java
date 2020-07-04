@@ -1,19 +1,20 @@
 package com.example.astroweather1.weather;
 
+import android.content.Context;
+
+import com.example.astroweather1.FileOperator;
+
 import org.json.*;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Iterator;
+import static com.example.astroweather1.FileOperator.buildInformationFile;
 
 public class WeatherInformationJsonParser {
-    public static void parse(String jsonString) throws JSONException {
+    public static void parse(String jsonString, Context context) throws JSONException {
         JSONObject obj = new JSONObject(jsonString);
         WeatherInformation.setCity(obj.getJSONObject("location").getString("city"));
         WeatherInformation.setLatitude(obj.getJSONObject("location").getDouble("lat"));
         WeatherInformation.setLongitude(obj.getJSONObject("location").getDouble("long"));
-        WeatherInformation.setTemperature(obj.getJSONObject("current_observation").getJSONObject("condition").getInt("temperature"));
+        WeatherInformation.setTemperatureInFahrenheit(obj.getJSONObject("current_observation").getJSONObject("condition").getInt("temperature"));
         WeatherInformation.setPressure(obj.getJSONObject("current_observation").getJSONObject("atmosphere").getDouble("pressure"));
         WeatherInformation.setDescription(obj.getJSONObject("current_observation").getJSONObject("condition").getString("text"));
         WeatherInformation.setWindSpeed(obj.getJSONObject("current_observation").getJSONObject("wind").getDouble("speed"));
@@ -24,10 +25,7 @@ public class WeatherInformationJsonParser {
         for(int i=0;i<array.length();i++){
             WeatherInformation.addDay(new WeatherSimpleInformation(((JSONObject)array.get(i)).getString("day"),((JSONObject)array.get(i)).getInt("low"),((JSONObject)array.get(i)).getInt("high"), ((JSONObject)array.get(i)).getString("text")));
         }
-        /*Iterator iterator = array.iterator();
-        while(iterator.hasNext()){
-            obj = (JSONObject)iterator.next();
-            weatherInformation.addDay(new WeatherSimpleInformation(obj.getString("day"), obj.getInt("low"), obj.getInt("high"), obj.getString("text")));
-        }*/
+        buildInformationFile(context);
+        FileOperator.saveFile(jsonString, context);
     }
 }

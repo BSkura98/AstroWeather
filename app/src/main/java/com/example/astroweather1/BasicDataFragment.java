@@ -10,11 +10,9 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.astroweather1.weather.WeatherInformation;
-import com.example.astroweather1.weather.WeatherInformationJsonParser;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -96,7 +94,7 @@ public class BasicDataFragment extends Fragment implements UpdateData {
     @Override
     public void updateData(){
         cityTextView.setText(WeatherInformation.getCity());
-        temperatureTextView.setText("Temperature: "+Integer.toString(WeatherInformation.getTemperature()));
+        temperatureTextView.setText("Temperature: "+Integer.toString(WeatherInformation.getTemperature())+"°"+WeatherInformation.getUnit());
         descriptionTextView.setText("Description: "+WeatherInformation.getDescription());
         pressureTextView.setText("Pressure: "+Double.toString(WeatherInformation.getPressure()));
         latitudeTextView.setText("Latitude: "+ Double.toString(WeatherInformation.getLatitude()));

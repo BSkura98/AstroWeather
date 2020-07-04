@@ -7,7 +7,8 @@ public class WeatherInformation {
     static String city="";
     static double latitude=0;
     static double longitude=0;
-    static int temperature=0;
+    static int temperatureInFahrenheit =0;
+    static int temperatureInCelsius=0;
     static double pressure=0;
     static String description="";
     static double windSpeed=0;
@@ -15,6 +16,7 @@ public class WeatherInformation {
     static int humidity=0;
     static double visibility=0;
     static List<WeatherSimpleInformation> days=new ArrayList<>();
+    static String unit = "F";
 
     //public WeatherInformation(){}
 
@@ -42,12 +44,13 @@ public class WeatherInformation {
         WeatherInformation.longitude = longitude;
     }
 
-    public static int getTemperature() {
-        return temperature;
+    public static int getTemperatureInFahrenheit() {
+        return temperatureInFahrenheit;
     }
 
-    public static void setTemperature(int temperature) {
-        WeatherInformation.temperature = temperature;
+    public static void setTemperatureInFahrenheit(int temperatureInFahrenheit) {
+        WeatherInformation.temperatureInFahrenheit = temperatureInFahrenheit;
+        WeatherInformation.temperatureInCelsius=(int)((temperatureInFahrenheit-32)*(0.5556));
     }
 
     public static double getPressure() {
@@ -104,5 +107,17 @@ public class WeatherInformation {
 
     public static List<WeatherSimpleInformation> getDays() {
         return days;
+    }
+
+    public static String getUnit() {
+        return unit;
+    }
+
+    public static void setUnit(String unit) {
+        WeatherInformation.unit = unit;
+    }
+
+    public static int getTemperature(){
+        return unit.equals("C")?temperatureInCelsius:temperatureInFahrenheit;
     }
 }

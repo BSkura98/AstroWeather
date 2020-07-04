@@ -78,6 +78,12 @@ public class WeatherActivity extends AppCompatActivity {
                 //intent = new Intent(this, RefreshTimeSettingsActivity.class);
                 //startActivity(intent);
                 return true;
+            case R.id.change_unit:
+                intent = new Intent(this, UnitSelectionActivity.class);
+                startActivity(intent);
+                //intent = new Intent(this, RefreshTimeSettingsActivity.class);
+                //startActivity(intent);
+                return true;
             case R.id.refresh_weather_data:
                 ExampleRequestManager requestManager = ExampleRequestManager.getInstance(this);
                 final Context context = this;
@@ -86,8 +92,8 @@ public class WeatherActivity extends AppCompatActivity {
                     public void onResponse(Object response) {
                         System.out.println("Response: "+response.toString());
                         try{
-                            WeatherInformationJsonParser.parse(response.toString());
-                            FileOperator.saveFile(response.toString(), context);
+                            WeatherInformationJsonParser.parse(response.toString(), context);
+                            //FileOperator.saveFile(response.toString(), context);
                             for(Fragment fragment:fragments){
                                 ((UpdateData)fragment).updateData();
                             }

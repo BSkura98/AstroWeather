@@ -8,6 +8,10 @@
         android:title="Change city"
         app:showAsAction="never"/>
 
+    <item android:id="@+id/change_unit"
+        android:title="Change unit"
+        app:showAsAction="never"/>
+
     <item android:id="@+id/refresh_weather_data"
         android:title="Refresh"
         app:showAsAction="never"/>

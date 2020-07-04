@@ -2,14 +2,18 @@ package com.example.astroweather1.weather;
 
 public class WeatherSimpleInformation {
     String day;
-    int minTemperature;
-    int maxTemperature;
+    int minTemperatureInFahrenheit;
+    int maxTemperatureInFahrenheit;
+    int minTemperatureInCelsius;
+    int maxTemperatureInCelsius;
     String description;
 
-    public WeatherSimpleInformation(String day, int minTemperature, int maxTemperature, String description) {
+    public WeatherSimpleInformation(String day, int minTemperatureInFahrenheit, int maxTemperatureInFahrenheit, String description) {
         this.day = day;
-        this.minTemperature = minTemperature;
-        this.maxTemperature = maxTemperature;
+        this.minTemperatureInFahrenheit = minTemperatureInFahrenheit;
+        this.maxTemperatureInFahrenheit = maxTemperatureInFahrenheit;
+        this.minTemperatureInCelsius = (int)((minTemperatureInFahrenheit-32)*(0.5556));
+        this.maxTemperatureInCelsius = (int)((maxTemperatureInFahrenheit-32)*(0.5556));
         this.description = description;
     }
 
@@ -21,20 +25,22 @@ public class WeatherSimpleInformation {
         this.day = day;
     }
 
-    public int getMinTemperature() {
-        return minTemperature;
+    public int getMinTemperatureInFahrenheit() {
+        return minTemperatureInFahrenheit;
     }
 
-    public void setMinTemperature(int minTemperature) {
-        this.minTemperature = minTemperature;
+    public void setMinTemperatureInFahrenheit(int minTemperatureInFahrenheit) {
+        this.minTemperatureInFahrenheit = minTemperatureInFahrenheit;
+        this.minTemperatureInCelsius = (int)((minTemperatureInFahrenheit-32)*(0.5556));
     }
 
-    public int getMaxTemperature() {
-        return maxTemperature;
+    public int getMaxTemperatureInFahrenheit() {
+        return maxTemperatureInFahrenheit;
     }
 
-    public void setMaxTemperature(int maxTemperature) {
-        this.maxTemperature = maxTemperature;
+    public void setMaxTemperatureInFahrenheit(int maxTemperatureInFahrenheit) {
+        this.maxTemperatureInFahrenheit = maxTemperatureInFahrenheit;
+        this.maxTemperatureInCelsius = (int)((maxTemperatureInFahrenheit-32)*(0.5556));
     }
 
     public String getDescription() {
@@ -43,5 +49,13 @@ public class WeatherSimpleInformation {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getMinTemperature(){
+        return WeatherInformation.getUnit().equals("C")?minTemperatureInCelsius:minTemperatureInFahrenheit;
+    }
+
+    public int getMaxTemperature(){
+        return WeatherInformation.getUnit().equals("C")?maxTemperatureInCelsius:maxTemperatureInFahrenheit;
     }
 }

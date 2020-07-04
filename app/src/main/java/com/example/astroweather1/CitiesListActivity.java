@@ -27,12 +27,13 @@ public class CitiesListActivity extends AppCompatActivity {
     private ListView listView;
     Button addCityButton;
     EditText cityEditText;
-    ExampleRequestManager requestManager = ExampleRequestManager.getInstance(this);
+    ExampleRequestManager requestManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cities_list);
+        requestManager = ExampleRequestManager.getInstance(this);
         listView=findViewById(R.id.listView);
         addCityButton = findViewById(R.id.addCityButton);
         cityEditText=findViewById(R.id.cityEditText);
@@ -61,8 +62,8 @@ public class CitiesListActivity extends AppCompatActivity {
             public void onResponse(Object response) {
                 System.out.println("Response: "+response.toString());
                 try{
-                    WeatherInformationJsonParser.parse(response.toString());
-                    FileOperator.saveFile(response.toString(), context);
+                    WeatherInformationJsonParser.parse(response.toString(), context);
+                    //FileOperator.saveFile(response.toString(), context);
                     addToDatabase(WeatherInformation.getCity());
                 }catch (Exception e){
                     e.printStackTrace();
@@ -101,6 +102,7 @@ public class CitiesListActivity extends AppCompatActivity {
         //create the list adapter and set the adapter
         ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);
         listView.setAdapter(adapter);
+        final Context context = this;
 
         //set an onItemClickListener to the ListView
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -113,7 +115,7 @@ public class CitiesListActivity extends AppCompatActivity {
                     public void onResponse(Object response) {
                         System.out.println(response.toString());
                         try{
-                            WeatherInformationJsonParser.parse(response.toString());
+                            WeatherInformationJsonParser.parse(response.toString(), context);
                         }catch (Exception e){
                             e.printStackTrace();
                         }
