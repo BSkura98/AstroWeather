@@ -14,16 +14,16 @@ import com.example.astroweather1.weather.WeatherInformation;
 public class UnitSelectionActivity extends AppCompatActivity {
     Spinner temperatureSpinner, pressureSpinner, windSpeedSpinner, visibilitySpinner;
     Button okButton;
-    String temperatureUnits[] = {"Celsius", "Fahrenheit"};
-    String pressureUnits[] = {"inches", "hPa"};
-    String windSpeedUnits[] = {"mph", "km/h"};
-    String visibilityUnits[] = {"miles", "km"};
+    String temperatureUnits[] = {"Select unit","Celsius", "Fahrenheit"};
+    String pressureUnits[] = {"Select unit","inches", "hPa"};
+    String windSpeedUnits[] = {"Select unit","mph", "km/h"};
+    String visibilityUnits[] = {"Select unit","miles", "km"};
     ArrayAdapter<String> adapter1, adapter2, adapter3, adapter4;
 
-    String selectedTemperatureUnit ="";
-    String selectedPressureUnit="";
-    String selectedWindSpeedUnit="";
-    String selectedVisibilityUnit="";
+    String selectedTemperatureUnit ="Select unit";
+    String selectedPressureUnit="Select unit";
+    String selectedWindSpeedUnit="Select unit";
+    String selectedVisibilityUnit="Select unit";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +42,16 @@ public class UnitSelectionActivity extends AppCompatActivity {
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!selectedTemperatureUnit.isEmpty()){
+                if(!selectedTemperatureUnit.equals("Select unit")){
                     WeatherInformation.setTemperatureUnit(selectedTemperatureUnit);
                 }
-                if(!selectedPressureUnit.isEmpty()){
+                if(!selectedPressureUnit.equals("Select unit")){
                     WeatherInformation.setPressureUnit(selectedPressureUnit);
                 }
-                if(!selectedWindSpeedUnit.isEmpty()){
+                if(!selectedWindSpeedUnit.equals("Select unit")){
                     WeatherInformation.setWindSpeedUnit(selectedWindSpeedUnit);
                 }
-                if(!selectedVisibilityUnit.isEmpty()){
+                if(!selectedVisibilityUnit.equals("Select unit")){
                     WeatherInformation.setVisibilityUnit(selectedVisibilityUnit);
                 }
                 finish();
@@ -66,9 +66,12 @@ public class UnitSelectionActivity extends AppCompatActivity {
                 switch (position)
                 {
                     case 0:
-                        selectedTemperatureUnit = "C";
+                        selectedTemperatureUnit="Select unit";
                         break;
                     case 1:
+                        selectedTemperatureUnit = "C";
+                        break;
+                    case 2:
                         selectedTemperatureUnit = "F";
                         break;
                 }
@@ -86,9 +89,12 @@ public class UnitSelectionActivity extends AppCompatActivity {
                 switch (position)
                 {
                     case 0:
-                        selectedPressureUnit = "inches";
+                        selectedPressureUnit="Select unit";
                         break;
                     case 1:
+                        selectedPressureUnit = "inches";
+                        break;
+                    case 2:
                         selectedPressureUnit = "hPa";
                         break;
                 }
@@ -106,9 +112,12 @@ public class UnitSelectionActivity extends AppCompatActivity {
                 switch (position)
                 {
                     case 0:
-                        selectedWindSpeedUnit = "mph";
+                        selectedWindSpeedUnit="Select unit";
                         break;
                     case 1:
+                        selectedWindSpeedUnit = "mph";
+                        break;
+                    case 2:
                         selectedWindSpeedUnit = "km/h";
                         break;
                 }
@@ -126,9 +135,12 @@ public class UnitSelectionActivity extends AppCompatActivity {
                 switch (position)
                 {
                     case 0:
-                        selectedVisibilityUnit = "miles";
+                        selectedVisibilityUnit="Select unit";
                         break;
                     case 1:
+                        selectedVisibilityUnit = "miles";
+                        break;
+                    case 2:
                         selectedVisibilityUnit = "km";
                         break;
                 }
