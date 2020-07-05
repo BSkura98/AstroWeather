@@ -27,7 +27,7 @@ public class ExampleRequest<T> extends JsonRequest<T> {
     final String CONSUMER_SECRET = "8962ec20db5d726bab8dc2cff9bb089db28ba42f";
     final String baseUrl = "https://weather-ydn-yql.media.yahoo.com/forecastrss";
 
-    static String city = "Warszawa";
+    static String city = "Sunnyvale";
 
     public ExampleRequest(int method, String url, String requestBody, String city, Response.Listener<T> listener, Response.ErrorListener errorListener) {
         super(method, url, requestBody, listener, errorListener);

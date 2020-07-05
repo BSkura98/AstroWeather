@@ -94,10 +94,10 @@ public class BasicDataFragment extends Fragment implements UpdateData {
     @Override
     public void updateData(){
         cityTextView.setText(WeatherInformation.getCity());
-        temperatureTextView.setText("Temperature: "+Integer.toString(WeatherInformation.getTemperature())+"°"+WeatherInformation.getUnit());
+        temperatureTextView.setText("Temperature: "+Integer.toString(WeatherInformation.getTemperature())+"°"+WeatherInformation.getTemperatureUnit());
         descriptionTextView.setText("Description: "+WeatherInformation.getDescription());
-        pressureTextView.setText("Pressure: "+Double.toString(WeatherInformation.getPressure()));
-        latitudeTextView.setText("Latitude: "+ Double.toString(WeatherInformation.getLatitude()));
-        longitudeTextView.setText("Longitude: "+Double.toString(WeatherInformation.getLongitude()));
+        pressureTextView.setText("Pressure: "+String.format( "%.2f", WeatherInformation.getPressure())+" "+WeatherInformation.getPressureUnit());
+        latitudeTextView.setText("Latitude: "+ String.format( "%.2f", WeatherInformation.getLatitude()));
+        longitudeTextView.setText("Longitude: "+String.format( "%.2f", WeatherInformation.getLongitude()));
     }
 }

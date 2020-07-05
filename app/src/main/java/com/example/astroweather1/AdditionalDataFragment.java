@@ -4,19 +4,12 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.astroweather1.weather.WeatherInformation;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
 
 
 /**
@@ -91,8 +84,8 @@ public class AdditionalDataFragment extends Fragment implements UpdateData{
     public void updateData(){
         cityTextView.setText(WeatherInformation.getCity());
         windDirectionTextView.setText("Wind direction: "+WeatherInformation.getWindDirectionAsString());
-        windSpeedTextView.setText("Wind speed: "+Double.toString(WeatherInformation.getWindSpeed()));
-        humidityTextView.setText("Humidity: "+Integer.toString(WeatherInformation.getHumidity()));
-        visibilityTextView.setText("Visibility: "+Double.toString(WeatherInformation.getVisibility()));
+        windSpeedTextView.setText("Wind speed: "+String.format( "%.2f", WeatherInformation.getWindSpeed())+" "+WeatherInformation.getWindSpeedUnit());
+        humidityTextView.setText("Humidity: "+Integer.toString(WeatherInformation.getHumidity())+"%");
+        visibilityTextView.setText("Visibility: "+String.format( "%.2f", WeatherInformation.getLatitude())+" "+WeatherInformation.getVisibilityUnit());
     }
 }

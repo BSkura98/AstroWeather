@@ -4,7 +4,7 @@
     <string name="tab_text_2">Moon</string>
     <string name="tab_text_3">Basic information</string>
     <string name="tab_text_4">Additional information</string>
-    <string name="tab_text_5">Upcoming days</string>
+    <string name="tab_text_5">This week</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

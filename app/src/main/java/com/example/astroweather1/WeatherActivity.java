@@ -75,7 +75,7 @@ public class WeatherActivity extends AppCompatActivity {
                 intent=new Intent(this, ChangeCityActivity.class);
                 startActivity(intent);
                 return true;
-            case R.id.change_unit:
+            case R.id.change_units:
                 intent = new Intent(this, UnitSelectionActivity.class);
                 startActivity(intent);
                 //intent = new Intent(this, RefreshTimeSettingsActivity.class);

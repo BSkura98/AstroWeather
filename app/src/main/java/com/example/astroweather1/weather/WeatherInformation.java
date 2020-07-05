@@ -9,14 +9,20 @@ public class WeatherInformation {
     static double longitude=0;
     static int temperatureInFahrenheit =0;
     static int temperatureInCelsius=0;
-    static double pressure=0;
+    static double pressureInInches =0;
+    static double pressureInMbar = 0;
     static String description="";
-    static double windSpeed=0;
+    static double windSpeedInMph =0;
+    static double windSpeedInKmH = 0;
     static int windDirection=0;
     static int humidity=0;
-    static double visibility=0;
+    static double visibilityInMiles =0;
+    static double visibilityInKm = 0;
     static List<WeatherSimpleInformation> days=new ArrayList<>();
-    static String unit = "F";
+    static String temperatureUnit = "F";
+    static String pressureUnit = "inches";
+    static String windSpeedUnit="mph";
+    static String visibilityUnit="miles";
 
     //public WeatherInformation(){}
 
@@ -53,12 +59,13 @@ public class WeatherInformation {
         WeatherInformation.temperatureInCelsius=(int)((temperatureInFahrenheit-32)*(0.5556));
     }
 
-    public static double getPressure() {
-        return pressure;
+    public static double getPressureInInches() {
+        return pressureInInches;
     }
 
-    public static void setPressure(double pressure) {
-        WeatherInformation.pressure = pressure;
+    public static void setPressureInInches(double pressureInInches) {
+        WeatherInformation.pressureInInches = pressureInInches;
+        WeatherInformation.pressureInMbar = pressureInInches*33.863886667;
     }
 
     public static String getDescription() {
@@ -69,12 +76,13 @@ public class WeatherInformation {
         WeatherInformation.description = description;
     }
 
-    public static double getWindSpeed() {
-        return windSpeed;
+    public static double getWindSpeedInMph() {
+        return windSpeedInMph;
     }
 
-    public static void setWindSpeed(double windSpeed) {
-        WeatherInformation.windSpeed = windSpeed;
+    public static void setWindSpeedInMph(double windSpeedInMph) {
+        WeatherInformation.windSpeedInMph = windSpeedInMph;
+        WeatherInformation.windSpeedInKmH = windSpeedInMph*1.609344;
     }
 
     public static int getWindDirection() {
@@ -93,12 +101,13 @@ public class WeatherInformation {
         WeatherInformation.humidity = humidity;
     }
 
-    public static double getVisibility() {
-        return visibility;
+    public static double getVisibilityInMiles() {
+        return visibilityInMiles;
     }
 
-    public static void setVisibility(double visibility) {
-        WeatherInformation.visibility = visibility;
+    public static void setVisibilityInMiles(double visibilityInMiles) {
+        WeatherInformation.visibilityInMiles = visibilityInMiles;
+        WeatherInformation.visibilityInKm = visibilityInMiles*1.609344;
     }
 
     public static void addDay(WeatherSimpleInformation day){
@@ -109,16 +118,52 @@ public class WeatherInformation {
         return days;
     }
 
-    public static String getUnit() {
-        return unit;
+    public static String getTemperatureUnit() {
+        return temperatureUnit;
     }
 
-    public static void setUnit(String unit) {
-        WeatherInformation.unit = unit;
+    public static void setTemperatureUnit(String temperatureUnit) {
+        WeatherInformation.temperatureUnit = temperatureUnit;
+    }
+
+    public static String getPressureUnit() {
+        return pressureUnit;
+    }
+
+    public static void setPressureUnit(String pressureUnit) {
+        WeatherInformation.pressureUnit = pressureUnit;
+    }
+
+    public static String getWindSpeedUnit() {
+        return windSpeedUnit;
+    }
+
+    public static void setWindSpeedUnit(String windSpeedUnit) {
+        WeatherInformation.windSpeedUnit = windSpeedUnit;
+    }
+
+    public static String getVisibilityUnit() {
+        return visibilityUnit;
+    }
+
+    public static void setVisibilityUnit(String visibilityUnit) {
+        WeatherInformation.visibilityUnit = visibilityUnit;
     }
 
     public static int getTemperature(){
-        return unit.equals("C")?temperatureInCelsius:temperatureInFahrenheit;
+        return temperatureUnit.equals("C")?temperatureInCelsius:temperatureInFahrenheit;
+    }
+
+    public static double getPressure(){
+        return pressureUnit.equals("inches")?pressureInInches:pressureInMbar;
+    }
+
+    public static double getWindSpeed(){
+        return windSpeedUnit.equals("mph")?windSpeedInMph:windSpeedInKmH;
+    }
+
+    public static double getVisibility(){
+        return visibilityUnit.equals("miles")?visibilityInMiles:visibilityInKm;
     }
 
     public static String getWindDirectionAsString(){

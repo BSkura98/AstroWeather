@@ -52,10 +52,10 @@ public class WeatherSimpleInformation {
     }
 
     public int getMinTemperature(){
-        return WeatherInformation.getUnit().equals("C")?minTemperatureInCelsius:minTemperatureInFahrenheit;
+        return WeatherInformation.getTemperatureUnit().equals("C")?minTemperatureInCelsius:minTemperatureInFahrenheit;
     }
 
     public int getMaxTemperature(){
-        return WeatherInformation.getUnit().equals("C")?maxTemperatureInCelsius:maxTemperatureInFahrenheit;
+        return WeatherInformation.getTemperatureUnit().equals("C")?maxTemperatureInCelsius:maxTemperatureInFahrenheit;
     }
 }

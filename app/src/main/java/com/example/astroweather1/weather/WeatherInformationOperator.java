@@ -23,12 +23,12 @@ public class WeatherInformationOperator {
         WeatherInformation.setLatitude(obj.getJSONObject("location").getDouble("lat"));
         WeatherInformation.setLongitude(obj.getJSONObject("location").getDouble("long"));
         WeatherInformation.setTemperatureInFahrenheit(obj.getJSONObject("current_observation").getJSONObject("condition").getInt("temperature"));
-        WeatherInformation.setPressure(obj.getJSONObject("current_observation").getJSONObject("atmosphere").getDouble("pressure"));
+        WeatherInformation.setPressureInInches(obj.getJSONObject("current_observation").getJSONObject("atmosphere").getDouble("pressure"));
         WeatherInformation.setDescription(obj.getJSONObject("current_observation").getJSONObject("condition").getString("text"));
-        WeatherInformation.setWindSpeed(obj.getJSONObject("current_observation").getJSONObject("wind").getDouble("speed"));
+        WeatherInformation.setWindSpeedInMph(obj.getJSONObject("current_observation").getJSONObject("wind").getDouble("speed"));
         WeatherInformation.setWindDirection(obj.getJSONObject("current_observation").getJSONObject("wind").getInt("direction"));
         WeatherInformation.setHumidity(obj.getJSONObject("current_observation").getJSONObject("atmosphere").getInt("humidity"));
-        WeatherInformation.setVisibility(obj.getJSONObject("current_observation").getJSONObject("atmosphere").getDouble("visibility"));
+        WeatherInformation.setVisibilityInMiles(obj.getJSONObject("current_observation").getJSONObject("atmosphere").getDouble("visibility"));
         JSONArray array = obj.getJSONArray("forecasts");
         for(int i=0;i<array.length();i++){
             WeatherInformation.addDay(new WeatherSimpleInformation(((JSONObject)array.get(i)).getString("day"),((JSONObject)array.get(i)).getInt("low"),((JSONObject)array.get(i)).getInt("high"), ((JSONObject)array.get(i)).getString("text")));
@@ -89,7 +89,10 @@ public class WeatherInformationOperator {
         JSONObject object = new JSONObject();
         object.put("last refresh",System.currentTimeMillis());
         object.put("last location", WeatherInformation.getCity());
-        object.put("unit", WeatherInformation.getUnit());
+        object.put("temperature unit", WeatherInformation.getTemperatureUnit());
+        object.put("pressure unit", WeatherInformation.getPressureUnit());
+        object.put("wind speed unit", WeatherInformation.getWindSpeedUnit());
+        object.put("visibility unit", WeatherInformation.getVisibilityUnit());
         System.out.println("Built file: "+object.toString());
         FileOutputStream fos = null;
 
@@ -128,7 +131,9 @@ public class WeatherInformationOperator {
             obj = new JSONObject(sb.toString());
             System.out.println("Saved file: "+sb.toString());
             WeatherInformation.setCity(obj.getString("last location"));
-            WeatherInformation.setUnit(obj.getString("unit"));
+            WeatherInformation.setTemperatureUnit(obj.getString("temperature unit"));
+            WeatherInformation.setPressureUnit(obj.getString("pressure unit"));
+            WeatherInformation.setVisibilityUnit(obj.getString("visibility unit"));
         }catch (Exception e){
             e.printStackTrace();
         }finally {
