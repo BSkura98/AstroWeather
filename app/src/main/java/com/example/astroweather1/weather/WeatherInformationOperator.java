@@ -2,6 +2,8 @@ package com.example.astroweather1.weather;
 
 import android.content.Context;
 
+import com.example.astroweather1.AstroInformation;
+
 import org.json.*;
 
 import java.io.BufferedReader;
@@ -22,6 +24,7 @@ public class WeatherInformationOperator {
         WeatherInformation.setCity(obj.getJSONObject("location").getString("city"));
         WeatherInformation.setLatitude(obj.getJSONObject("location").getDouble("lat"));
         WeatherInformation.setLongitude(obj.getJSONObject("location").getDouble("long"));
+        AstroInformation.setLocation(WeatherInformation.getLatitude(), WeatherInformation.getLongitude());
         WeatherInformation.setTemperatureInFahrenheit(obj.getJSONObject("current_observation").getJSONObject("condition").getInt("temperature"));
         WeatherInformation.setPressureInInches(obj.getJSONObject("current_observation").getJSONObject("atmosphere").getDouble("pressure"));
         WeatherInformation.setDescription(obj.getJSONObject("current_observation").getJSONObject("condition").getString("text"));
