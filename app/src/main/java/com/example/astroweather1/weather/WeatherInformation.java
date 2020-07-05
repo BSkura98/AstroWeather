@@ -120,4 +120,26 @@ public class WeatherInformation {
     public static int getTemperature(){
         return unit.equals("C")?temperatureInCelsius:temperatureInFahrenheit;
     }
+
+    public static String getWindDirectionAsString(){
+        if(windDirection>337){
+            return "N";
+        }else if(windDirection>292){
+            return "NW";
+        }else if(windDirection>247){
+            return "W";
+        }else if(windDirection>202){
+            return "SW";
+        }else if(windDirection>157){
+            return "S";
+        }else if(windDirection>112){
+            return "SE";
+        }else if(windDirection>67){
+            return "E";
+        }else if(windDirection>22){
+            return "NE";
+        }else{
+            return "N";
+        }
+    }
 }

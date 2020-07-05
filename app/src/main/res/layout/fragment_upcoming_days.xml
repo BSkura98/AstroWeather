@@ -20,7 +20,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:minHeight="40sp"
-                android:text="Day" />
+                android:text="Day"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView17"
@@ -28,7 +29,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:minHeight="40sp"
-                android:text="Min" />
+                android:text="Min"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView18"
@@ -36,7 +38,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:minHeight="40sp"
-                android:text="Max" />
+                android:text="Max"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView19"
@@ -44,7 +47,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:minHeight="40sp"
-                android:text="Description" />
+                android:text="Description"
+                android:textStyle="bold" />
         </TableRow>
 
         <TableRow

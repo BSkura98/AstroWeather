@@ -16,14 +16,14 @@ import java.util.List;
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-public class SectionsPagerAdapter extends FragmentPagerAdapter {
+public class AstroSectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3, R.string.tab_text_4, R.string.tab_text_5};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2};
     private final Context mContext;
     private List<Fragment> fragmentList;
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm, List<Fragment> fragmentList) {
+    public AstroSectionsPagerAdapter(Context context, FragmentManager fm, List<Fragment> fragmentList) {
         super(fm);
         mContext = context;
         this.fragmentList = fragmentList;

@@ -22,7 +22,7 @@ import com.example.astroweather1.weather.WeatherInformationOperator;
 
 import java.util.ArrayList;
 
-public class CitiesListActivity extends AppCompatActivity {
+public class FavoriteLocationsActivity extends AppCompatActivity {
     DatabaseHelper databaseHelper;
     private ListView listView;
     Button addCityButton;

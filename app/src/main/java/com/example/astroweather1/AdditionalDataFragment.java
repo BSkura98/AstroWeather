@@ -90,7 +90,7 @@ public class AdditionalDataFragment extends Fragment implements UpdateData{
     @Override
     public void updateData(){
         cityTextView.setText(WeatherInformation.getCity());
-        windDirectionTextView.setText("Wind direction: "+Integer.toString(WeatherInformation.getWindDirection()));
+        windDirectionTextView.setText("Wind direction: "+WeatherInformation.getWindDirectionAsString());
         windSpeedTextView.setText("Wind speed: "+Double.toString(WeatherInformation.getWindSpeed()));
         humidityTextView.setText("Humidity: "+Integer.toString(WeatherInformation.getHumidity()));
         visibilityTextView.setText("Visibility: "+Double.toString(WeatherInformation.getVisibility()));

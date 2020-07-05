@@ -1,7 +1,6 @@
 package com.example.astroweather1;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 
 import com.example.astroweather1.fragments.MoonFragment;
@@ -18,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.astroweather1.ui.main.SectionsPagerAdapter;
+import com.example.astroweather1.ui.main.AstroSectionsPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +41,7 @@ public class AstroActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(),list);
+        AstroSectionsPagerAdapter sectionsPagerAdapter = new AstroSectionsPagerAdapter(this, getSupportFragmentManager(),list);
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);

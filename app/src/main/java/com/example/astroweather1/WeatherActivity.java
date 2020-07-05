@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.astroweather1.ui.main.WeatherSectionsPagerAdapter;
 import com.example.astroweather1.weather.WeatherInformationOperator;
 import com.google.android.material.tabs.TabLayout;
 
@@ -19,7 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.astroweather1.ui.main.SectionsPagerAdapter;
+import com.example.astroweather1.ui.main.AstroSectionsPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,7 @@ public class WeatherActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
 
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(),fragments);
+        WeatherSectionsPagerAdapter sectionsPagerAdapter = new WeatherSectionsPagerAdapter(this, getSupportFragmentManager(),fragments);
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
@@ -65,7 +66,7 @@ public class WeatherActivity extends AppCompatActivity {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.favorite_locations:
-                intent = new Intent(this, CitiesListActivity.class);
+                intent = new Intent(this, FavoriteLocationsActivity.class);
                 startActivity(intent);
                 //intent = new Intent(this, RefreshTimeSettingsActivity.class);
                 //startActivity(intent);
