@@ -2,7 +2,9 @@ package com.example.astroweather1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -32,7 +34,7 @@ public class FavoriteLocationsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cities_list);
+        setContentView(R.layout.activity_favorite_locations);
         requestManager = ExampleRequestManager.getInstance(this);
         listView=findViewById(R.id.listView);
         addCityButton = findViewById(R.id.confirmCityButton);
@@ -103,6 +105,7 @@ public class FavoriteLocationsActivity extends AppCompatActivity {
         //create the list adapter and set the adapter
         ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);
         listView.setAdapter(adapter);
+        listView.setLongClickable(true);
         final Context context = this;
 
         //set an onItemClickListener to the ListView
@@ -130,21 +133,32 @@ public class FavoriteLocationsActivity extends AppCompatActivity {
                     }
                 });
                 requestManager.addToRequestQueue(request);
+            }
+        });
 
-                /*Cursor data = databaseHelper.getItemID(name); //get the id associated with that name
-                int itemID = -1;
-                while(data.moveToNext()){
-                    itemID = data.getInt(0);
-                }
-                if(itemID > -1){
-                    //Intent editScreenIntent = new Intent(CitiesListActivity.this, EditDataActivity.class);
-                    //editScreenIntent.putExtra("id",itemID);
-                    //editScreenIntent.putExtra("name",name);
-                    //startActivity(editScreenIntent);
-                }
-                else{
-                    toastMessage("No ID associated with that name");
-                }*/
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+            @Override
+            public boolean onItemLongClick(final AdapterView<?> parent, View view, final int position, long id) {
+                final int item = position;
+                final String name = parent.getItemAtPosition(position).toString();
+
+                new AlertDialog.Builder(FavoriteLocationsActivity.this)
+                        .setIcon(android.R.drawable.ic_delete)
+                        .setTitle("Are you sure?")
+                        .setMessage("Do you want to delete this item?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //databaseHelper.deleteName(databaseHelper.getItemID(name).getPosition(), name);
+                                databaseHelper.deleteData(name);
+                                populateListView();
+                                toastMessage("Deleted");
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+
+                return true;
             }
         });
     }
