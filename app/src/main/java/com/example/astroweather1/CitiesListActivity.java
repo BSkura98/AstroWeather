@@ -18,7 +18,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.astroweather1.weather.WeatherInformation;
-import com.example.astroweather1.weather.WeatherInformationJsonParser;
+import com.example.astroweather1.weather.WeatherInformationOperator;
 
 import java.util.ArrayList;
 
@@ -62,7 +62,7 @@ public class CitiesListActivity extends AppCompatActivity {
             public void onResponse(Object response) {
                 System.out.println("Response: "+response.toString());
                 try{
-                    WeatherInformationJsonParser.parse(response.toString(), context);
+                    WeatherInformationOperator.parse(response.toString(), context);
                     //FileOperator.saveFile(response.toString(), context);
                     addToDatabase(WeatherInformation.getCity());
                     populateListView();
@@ -116,7 +116,7 @@ public class CitiesListActivity extends AppCompatActivity {
                     public void onResponse(Object response) {
                         System.out.println(response.toString());
                         try{
-                            WeatherInformationJsonParser.parse(response.toString(), context);
+                            WeatherInformationOperator.parse(response.toString(), context);
                             finish();
                         }catch (Exception e){
                             e.printStackTrace();

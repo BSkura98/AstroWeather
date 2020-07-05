@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.example.astroweather1.weather.WeatherInformationJsonParser;
+import com.example.astroweather1.weather.WeatherInformationOperator;
 
 public class ChangeCityActivity extends AppCompatActivity {
     DatabaseHelper databaseHelper;
@@ -41,7 +41,7 @@ public class ChangeCityActivity extends AppCompatActivity {
                             System.out.println(response.toString());
                             try{
                                 toastMessage("Downloaded new data from Internet");
-                                WeatherInformationJsonParser.parse(response.toString(), context);
+                                WeatherInformationOperator.parse(response.toString(), context);
                                 finish();
                             }catch (Exception e){
                                 e.printStackTrace();

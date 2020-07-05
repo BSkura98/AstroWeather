@@ -1,12 +1,8 @@
-package com.example.astroweather1;
+package com.example.astroweather1.weather;
 
 import android.content.Context;
 
-import com.example.astroweather1.weather.WeatherInformation;
-import com.example.astroweather1.weather.WeatherInformationJsonParser;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.*;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -17,15 +13,35 @@ import java.io.InputStreamReader;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class FileOperator {
-    private static final String WEATHER_INFORMATION_FILENAME ="weather_information.json";
-    private static final String LAST_INFORMATION_FILENAME = "last_information_filename.json";
+public class WeatherInformationOperator {
+    private static final String WEATHER_FORECAST_FILENAME ="weather_information.json";
+    private static final String SETTINGS_FILENAME = "settings.json";
 
-    public static void saveFile(String jsonString, Context context){
+    public static void parse(String jsonString, Context context) throws JSONException {
+        JSONObject obj = new JSONObject(jsonString);
+        WeatherInformation.setCity(obj.getJSONObject("location").getString("city"));
+        WeatherInformation.setLatitude(obj.getJSONObject("location").getDouble("lat"));
+        WeatherInformation.setLongitude(obj.getJSONObject("location").getDouble("long"));
+        WeatherInformation.setTemperatureInFahrenheit(obj.getJSONObject("current_observation").getJSONObject("condition").getInt("temperature"));
+        WeatherInformation.setPressure(obj.getJSONObject("current_observation").getJSONObject("atmosphere").getDouble("pressure"));
+        WeatherInformation.setDescription(obj.getJSONObject("current_observation").getJSONObject("condition").getString("text"));
+        WeatherInformation.setWindSpeed(obj.getJSONObject("current_observation").getJSONObject("wind").getDouble("speed"));
+        WeatherInformation.setWindDirection(obj.getJSONObject("current_observation").getJSONObject("wind").getInt("direction"));
+        WeatherInformation.setHumidity(obj.getJSONObject("current_observation").getJSONObject("atmosphere").getInt("humidity"));
+        WeatherInformation.setVisibility(obj.getJSONObject("current_observation").getJSONObject("atmosphere").getDouble("visibility"));
+        JSONArray array = obj.getJSONArray("forecasts");
+        for(int i=0;i<array.length();i++){
+            WeatherInformation.addDay(new WeatherSimpleInformation(((JSONObject)array.get(i)).getString("day"),((JSONObject)array.get(i)).getInt("low"),((JSONObject)array.get(i)).getInt("high"), ((JSONObject)array.get(i)).getString("text")));
+        }
+        saveSettingsFile(context);
+        saveWeatherForecastFile(jsonString, context);
+    }
+
+    public static void saveWeatherForecastFile(String jsonString, Context context){
         FileOutputStream fos = null;
 
         try{
-            fos = context.openFileOutput(WEATHER_INFORMATION_FILENAME, MODE_PRIVATE);
+            fos = context.openFileOutput(WEATHER_FORECAST_FILENAME, MODE_PRIVATE);
             fos.write(jsonString.getBytes());
         }catch (FileNotFoundException e){
             e.printStackTrace();
@@ -42,11 +58,11 @@ public class FileOperator {
         }
     }
 
-    public static void readFile(Context context){
+    public static void readWeatherForecastFile(Context context){
         FileInputStream fis = null;
 
         try{
-            fis = context.openFileInput(WEATHER_INFORMATION_FILENAME);
+            fis = context.openFileInput(WEATHER_FORECAST_FILENAME);
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader br = new BufferedReader(isr);
             StringBuilder sb = new StringBuilder();
@@ -55,7 +71,7 @@ public class FileOperator {
             while((text = br.readLine())!=null){
                 sb.append(text).append("\n");
             }
-            WeatherInformationJsonParser.parse(sb.toString(), context);
+            WeatherInformationOperator.parse(sb.toString(), context);
         }catch (Exception e){
             e.printStackTrace();
         }finally {
@@ -69,7 +85,7 @@ public class FileOperator {
         }
     }
 
-    public static void buildInformationFile(Context context) throws JSONException {
+    public static void saveSettingsFile(Context context) throws JSONException {
         JSONObject object = new JSONObject();
         object.put("last refresh",System.currentTimeMillis());
         object.put("last location", WeatherInformation.getCity());
@@ -78,7 +94,7 @@ public class FileOperator {
         FileOutputStream fos = null;
 
         try{
-            fos = context.openFileOutput(LAST_INFORMATION_FILENAME, MODE_PRIVATE);
+            fos = context.openFileOutput(SETTINGS_FILENAME, MODE_PRIVATE);
             fos.write(object.toString().getBytes());
         }catch (FileNotFoundException e){
             e.printStackTrace();
@@ -95,12 +111,12 @@ public class FileOperator {
         }
     }
 
-    public static long loadLastInformation(Context context){
+    public static long readSettingsFile(Context context){
         FileInputStream fis = null;
 
         JSONObject obj=null;
         try{
-            fis = context.openFileInput(LAST_INFORMATION_FILENAME);
+            fis = context.openFileInput(SETTINGS_FILENAME);
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader br = new BufferedReader(isr);
             StringBuilder sb = new StringBuilder();

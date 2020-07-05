@@ -7,14 +7,7 @@ import android.os.Bundle;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.example.astroweather1.fragments.MoonFragment;
-import com.example.astroweather1.fragments.SunFragment;
-import com.example.astroweather1.settings.LocalizationSettingsActivity;
-import com.example.astroweather1.settings.RefreshTimeSettingsActivity;
-import com.example.astroweather1.weather.WeatherInformation;
-import com.example.astroweather1.weather.WeatherInformationJsonParser;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.astroweather1.weather.WeatherInformationOperator;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.widget.Toolbar;
@@ -24,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.astroweather1.ui.main.SectionsPagerAdapter;
@@ -96,7 +88,7 @@ public class WeatherActivity extends AppCompatActivity {
                     public void onResponse(Object response) {
                         System.out.println("Response: "+response.toString());
                         try{
-                            WeatherInformationJsonParser.parse(response.toString(), context);
+                            WeatherInformationOperator.parse(response.toString(), context);
                             //FileOperator.saveFile(response.toString(), context);
                             for(Fragment fragment:fragments){
                                 ((UpdateData)fragment).updateData();

@@ -13,7 +13,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.astroweather1.weather.WeatherInformation;
-import com.example.astroweather1.weather.WeatherInformationJsonParser;
+import com.example.astroweather1.weather.WeatherInformationOperator;
 
 public class MainActivity extends AppCompatActivity {
     Button astroButton, weatherButton;
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        if(FileOperator.loadLastInformation(this)>600000){//po 10 minutach dopiero mogą być odświeżone dane; tu powinno być 600000
+        if(WeatherInformationOperator.readSettingsFile(this)>600000){//po 10 minutach dopiero mogą być odświeżone dane; tu powinno być 600000
             ExampleRequestManager requestManager = ExampleRequestManager.getInstance(this);
             final Context context = this;
             ExampleRequest request = new ExampleRequest(Request.Method.GET, null, null, WeatherInformation.getCity(), new Response.Listener() {
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
                     System.out.println(response.toString());
                     try{
                         toastMessage("Downloaded new data from Internet");
-                        WeatherInformationJsonParser.parse(response.toString(), context);
+                        WeatherInformationOperator.parse(response.toString(), context);
                     }catch (Exception e){
                         e.printStackTrace();
                     }
@@ -42,13 +42,13 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     toastMessage("Read new data from a file - no Internet access");
-                    FileOperator.readFile(context);
+                    WeatherInformationOperator.readWeatherForecastFile(context);
                     // Add error handling here
                 }
             });
             requestManager.addToRequestQueue(request);
         }else{
-            FileOperator.readFile(this);
+            WeatherInformationOperator.readWeatherForecastFile(this);
             toastMessage("Read new data from a file");
         }
 
