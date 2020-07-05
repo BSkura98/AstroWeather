@@ -15,7 +15,7 @@ public class UnitSelectionActivity extends AppCompatActivity {
     Spinner temperatureSpinner, pressureSpinner, windSpeedSpinner, visibilitySpinner;
     Button okButton;
     String temperatureUnits[] = {"Celsius", "Fahrenheit"};
-    String pressureUnits[] = {"inches", "mbar"};
+    String pressureUnits[] = {"inches", "hPa"};
     String windSpeedUnits[] = {"mph", "km/h"};
     String visibilityUnits[] = {"miles", "km"};
     ArrayAdapter<String> adapter1, adapter2, adapter3, adapter4;
@@ -89,7 +89,7 @@ public class UnitSelectionActivity extends AppCompatActivity {
                         selectedPressureUnit = "inches";
                         break;
                     case 1:
-                        selectedPressureUnit = "mbar";
+                        selectedPressureUnit = "hPa";
                         break;
                 }
             }

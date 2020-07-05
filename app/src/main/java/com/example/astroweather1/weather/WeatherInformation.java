@@ -10,7 +10,7 @@ public class WeatherInformation {
     static int temperatureInFahrenheit =0;
     static int temperatureInCelsius=0;
     static double pressureInInches =0;
-    static double pressureInMbar = 0;
+    static double pressureInhPa = 0;
     static String description="";
     static double windSpeedInMph =0;
     static double windSpeedInKmH = 0;
@@ -65,7 +65,7 @@ public class WeatherInformation {
 
     public static void setPressureInInches(double pressureInInches) {
         WeatherInformation.pressureInInches = pressureInInches;
-        WeatherInformation.pressureInMbar = pressureInInches*33.863886667;
+        WeatherInformation.pressureInhPa = pressureInInches*33.863886667;
     }
 
     public static String getDescription() {
@@ -155,7 +155,7 @@ public class WeatherInformation {
     }
 
     public static double getPressure(){
-        return pressureUnit.equals("inches")?pressureInInches:pressureInMbar;
+        return pressureUnit.equals("inches")?pressureInInches: pressureInhPa;
     }
 
     public static double getWindSpeed(){

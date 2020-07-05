@@ -8,6 +8,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.astroweather1.ui.main.WeatherSectionsPagerAdapter;
+import com.example.astroweather1.weather.WeatherInformation;
 import com.example.astroweather1.weather.WeatherInformationOperator;
 import com.google.android.material.tabs.TabLayout;
 
@@ -84,7 +85,7 @@ public class WeatherActivity extends AppCompatActivity {
             case R.id.refresh_weather_data:
                 ExampleRequestManager requestManager = ExampleRequestManager.getInstance(this);
                 final Context context = this;
-                final ExampleRequest request = new ExampleRequest(Request.Method.GET, null, null, null, new Response.Listener() {
+                final ExampleRequest request = new ExampleRequest(Request.Method.GET, null, null, WeatherInformation.getCity(), new Response.Listener() {
                     @Override
                     public void onResponse(Object response) {
                         System.out.println("Response: "+response.toString());
