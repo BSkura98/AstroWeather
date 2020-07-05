@@ -35,7 +35,7 @@ public class CitiesListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cities_list);
         requestManager = ExampleRequestManager.getInstance(this);
         listView=findViewById(R.id.listView);
-        addCityButton = findViewById(R.id.addCityButton);
+        addCityButton = findViewById(R.id.confirmCityButton);
         cityEditText=findViewById(R.id.cityEditText);
         databaseHelper = new DatabaseHelper(this);
 

@@ -4,6 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.astroweather1.WeatherActivity">
 
+    <item android:id="@+id/favorite_locations"
+        android:title="Favorite locations"
+        app:showAsAction="never"/>
+
     <item android:id="@+id/change_city"
         android:title="Change city"
         app:showAsAction="never"/>

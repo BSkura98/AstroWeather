@@ -72,11 +72,15 @@ public class WeatherActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
         switch (item.getItemId()) {
-            case R.id.change_city:
+            case R.id.favorite_locations:
                 intent = new Intent(this, CitiesListActivity.class);
                 startActivity(intent);
                 //intent = new Intent(this, RefreshTimeSettingsActivity.class);
                 //startActivity(intent);
+                return true;
+            case R.id.change_city:
+                intent=new Intent(this, ChangeCityActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.change_unit:
                 intent = new Intent(this, UnitSelectionActivity.class);
@@ -111,6 +115,7 @@ public class WeatherActivity extends AppCompatActivity {
                     }
                 });
                 requestManager.addToRequestQueue(request);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
