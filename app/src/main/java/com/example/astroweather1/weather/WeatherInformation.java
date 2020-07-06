@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WeatherInformation {
-    static String city="";
+    static String city="Warszawa";
     static double latitude=0;
     static double longitude=0;
     static int temperatureInFahrenheit =0;

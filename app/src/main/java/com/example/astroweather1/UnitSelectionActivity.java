@@ -2,14 +2,19 @@ package com.example.astroweather1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.astroweather1.weather.WeatherInformation;
+import com.example.astroweather1.weather.WeatherInformationOperator;
+
+import org.json.JSONException;
 
 public class UnitSelectionActivity extends AppCompatActivity {
     Spinner temperatureSpinner, pressureSpinner, windSpeedSpinner, visibilitySpinner;
@@ -38,6 +43,7 @@ public class UnitSelectionActivity extends AppCompatActivity {
         adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, pressureUnits);
         adapter3 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, windSpeedUnits);
         adapter4 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, visibilityUnits);
+        final Context context = this;
 
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +59,11 @@ public class UnitSelectionActivity extends AppCompatActivity {
                 }
                 if(!selectedVisibilityUnit.equals("Select unit")){
                     WeatherInformation.setVisibilityUnit(selectedVisibilityUnit);
+                }
+                try{
+                    WeatherInformationOperator.saveSettingsFile(context);
+                }catch (JSONException e){
+                    e.printStackTrace();
                 }
                 finish();
             }
@@ -149,5 +160,9 @@ public class UnitSelectionActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+    }
+
+    private void toastMessage(String message){
+        Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }
 }

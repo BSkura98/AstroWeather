@@ -137,6 +137,8 @@ public class WeatherInformationOperator {
             WeatherInformation.setTemperatureUnit(obj.getString("temperature unit"));
             WeatherInformation.setPressureUnit(obj.getString("pressure unit"));
             WeatherInformation.setVisibilityUnit(obj.getString("visibility unit"));
+        }catch(FileNotFoundException e){
+
         }catch (Exception e){
             e.printStackTrace();
         }finally {

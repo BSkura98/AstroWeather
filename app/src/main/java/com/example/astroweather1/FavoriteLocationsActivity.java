@@ -46,7 +46,7 @@ public class FavoriteLocationsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String newEntry = cityEditText.getText().toString();
                 if (cityEditText.length() != 0) {
-                    AddData(newEntry);
+                    AddData(newEntry.trim().replace(" ", "-"));
                     cityEditText.setText("");
                 } else {
                     toastMessage("You must put something in the text field!");
@@ -69,6 +69,7 @@ public class FavoriteLocationsActivity extends AppCompatActivity {
                     addToDatabase(WeatherInformation.getCity());
                     populateListView();
                 }catch (Exception e){
+                    toastMessage("An error occured");
                     e.printStackTrace();
                 }
                 // Add success logic here
@@ -122,6 +123,7 @@ public class FavoriteLocationsActivity extends AppCompatActivity {
                             WeatherInformationOperator.parse(response.toString(), context);
                             finish();
                         }catch (Exception e){
+                            toastMessage("Error");
                             e.printStackTrace();
                         }
                         // Add success logic here
@@ -129,6 +131,7 @@ public class FavoriteLocationsActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        toastMessage("Error");
                         // Add error handling here
                     }
                 });
