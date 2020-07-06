@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".UpcomingDaysFragment" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5sp"
+                android:layout_marginTop="5sp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Day"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textView17"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Min"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textView18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Max"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textView19"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Description"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/dayTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Day"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/minTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Min"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/maxTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Max"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/descriptionTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Description"
+                        android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/dayTextView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Day"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/minTextView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Min"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/maxTextView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Max"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/descriptionTextView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Description"
+                        android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/dayTextView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Day"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/minTextView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Min"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/maxTextView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Max"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/descriptionTextView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Description"
+                        android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/dayTextView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Day"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/minTextView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Min"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/maxTextView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Max"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/descriptionTextView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Description"
+                        android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/dayTextView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Day"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/minTextView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Min"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/maxTextView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Max"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/descriptionTextView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Description"
+                        android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/dayTextView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Day"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/minTextView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Min"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/maxTextView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Max"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/descriptionTextView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Description"
+                        android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/dayTextView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Day"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/minTextView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Min"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/maxTextView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Max"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/descriptionTextView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="50sp"
+                        android:text="Description"
+                        android:textSize="18sp" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
