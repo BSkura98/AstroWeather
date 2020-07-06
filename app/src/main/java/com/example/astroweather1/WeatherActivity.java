@@ -81,28 +81,32 @@ public class WeatherActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.refresh_weather_data:
-                WeatherRequestManager requestManager = WeatherRequestManager.getInstance(this);
-                final Context context = this;
-                final WeatherRequest request = new WeatherRequest(Request.Method.GET, null, null, WeatherInformation.getCity(), new Response.Listener() {
-                    @Override
-                    public void onResponse(Object response) {
-                        System.out.println("Response: "+response.toString());
-                        try{
-                            WeatherInformationOperator.parse(response.toString(), context);
-                            for(Fragment fragment:fragments){
-                                ((UpdateData)fragment).updateData();
+                if(ConnectionInformation.checkInternetConnection(this)){
+                    WeatherRequestManager requestManager = WeatherRequestManager.getInstance(this);
+                    final Context context = this;
+                    final WeatherRequest request = new WeatherRequest(Request.Method.GET, null, null, WeatherInformation.getCity(), new Response.Listener() {
+                        @Override
+                        public void onResponse(Object response) {
+                            System.out.println("Response: "+response.toString());
+                            try{
+                                WeatherInformationOperator.parse(response.toString(), context);
+                                for(Fragment fragment:fragments){
+                                    ((UpdateData)fragment).updateData();
+                                }
+                            }catch (Exception e){
+                                e.printStackTrace();
                             }
-                        }catch (Exception e){
-                            e.printStackTrace();
                         }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        toastMessage("An error occurred while refreshing the data - make sure you have internet access");
-                    }
-                });
-                requestManager.addToRequestQueue(request);
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            toastMessage("An error occurred while refreshing the data - make sure you have internet access");
+                        }
+                    });
+                    requestManager.addToRequestQueue(request);
+                }else{
+                    toastMessage("No internet access");
+                }
                 return true;
         }
 

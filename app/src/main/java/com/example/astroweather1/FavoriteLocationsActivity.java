@@ -59,26 +59,30 @@ public class FavoriteLocationsActivity extends AppCompatActivity {
 
     public void AddData(String newEntry) {
         final Context context = this;
-        final WeatherRequest request = new WeatherRequest(Request.Method.GET, null, null, newEntry, new Response.Listener() {
-            @Override
-            public void onResponse(Object response) {
-                System.out.println("Response: "+response.toString());
-                try{
-                    WeatherInformationOperator.parse(response.toString(), context);
-                    addToDatabase(WeatherInformation.getCity());
-                    populateListView();
-                }catch (Exception e){
-                    toastMessage("An error occured - make sure the city name is correct");
-                    e.printStackTrace();
+        if(ConnectionInformation.checkInternetConnection(this)){
+            final WeatherRequest request = new WeatherRequest(Request.Method.GET, null, null, newEntry, new Response.Listener() {
+                @Override
+                public void onResponse(Object response) {
+                    System.out.println("Response: "+response.toString());
+                    try{
+                        WeatherInformationOperator.parse(response.toString(), context);
+                        addToDatabase(WeatherInformation.getCity());
+                        populateListView();
+                    }catch (Exception e){
+                        toastMessage("An error occured - make sure the city name is correct");
+                        e.printStackTrace();
+                    }
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                toastMessage("An error occured - make sure you have internet access");
-            }
-        });
-        requestManager.addToRequestQueue(request);
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    toastMessage("An error occured - make sure you have internet access");
+                }
+            });
+            requestManager.addToRequestQueue(request);
+        }else{
+            toastMessage("No internet access");
+        }
     }
 
     private void addToDatabase(String city){
@@ -107,25 +111,29 @@ public class FavoriteLocationsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String name = adapterView.getItemAtPosition(i).toString();
                 System.out.println(name.toLowerCase());
-                WeatherRequest request = new WeatherRequest(Request.Method.GET, null, null, name, new Response.Listener() {
-                    @Override
-                    public void onResponse(Object response) {
-                        System.out.println(response.toString());
-                        try{
-                            WeatherInformationOperator.parse(response.toString(), context);
-                            finish();
-                        }catch (Exception e){
-                            toastMessage("Error");
-                            e.printStackTrace();
+                if(ConnectionInformation.checkInternetConnection(context)){
+                    WeatherRequest request = new WeatherRequest(Request.Method.GET, null, null, name, new Response.Listener() {
+                        @Override
+                        public void onResponse(Object response) {
+                            System.out.println(response.toString());
+                            try{
+                                WeatherInformationOperator.parse(response.toString(), context);
+                                finish();
+                            }catch (Exception e){
+                                toastMessage("Error");
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        toastMessage("An error occured - make sure you have internet access");
-                    }
-                });
-                requestManager.addToRequestQueue(request);
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            toastMessage("An error occured - make sure you have internet access");
+                        }
+                    });
+                    requestManager.addToRequestQueue(request);
+                }else{
+                    toastMessage("No internet access");
+                }
             }
         });
 

@@ -34,26 +34,30 @@ public class ChangeCityActivity extends AppCompatActivity {
                 String newEntry = cityEditText.getText().toString();
                 if (cityEditText.length() != 0) {
                     WeatherRequestManager requestManager = WeatherRequestManager.getInstance(context);
-                    WeatherRequest request = new WeatherRequest(Request.Method.GET, null, null, newEntry, new Response.Listener() {
-                        @Override
-                        public void onResponse(Object response) {
-                            System.out.println(response.toString());
-                            try{
-                                toastMessage("Downloaded new data from Internet");
-                                WeatherInformationOperator.parse(response.toString(), context);
-                                finish();
-                            }catch (Exception e){
-                                toastMessage("Error");
-                                e.printStackTrace();
+                    if(ConnectionInformation.checkInternetConnection(context)){
+                        WeatherRequest request = new WeatherRequest(Request.Method.GET, null, null, newEntry, new Response.Listener() {
+                            @Override
+                            public void onResponse(Object response) {
+                                System.out.println(response.toString());
+                                try{
+                                    toastMessage("Downloaded new data from Internet");
+                                    WeatherInformationOperator.parse(response.toString(), context);
+                                    finish();
+                                }catch (Exception e){
+                                    toastMessage("Error");
+                                    e.printStackTrace();
+                                }
                             }
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            toastMessage("An error occured - make sure you have internet access");
-                        }
-                    });
-                    requestManager.addToRequestQueue(request);
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                toastMessage("An error occured - make sure you have internet access");
+                            }
+                        });
+                        requestManager.addToRequestQueue(request);
+                    }else{
+                        toastMessage("No internet access");
+                    }
                 } else {
                     toastMessage("You must put something in the text field!");
                 }
