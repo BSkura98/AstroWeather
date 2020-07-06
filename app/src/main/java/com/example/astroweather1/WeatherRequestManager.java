@@ -6,20 +6,20 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
-public class ExampleRequestManager {
-    private static ExampleRequestManager sInstance;
+public class WeatherRequestManager {
+    private static WeatherRequestManager sInstance;
 
     Context mContext;
     RequestQueue mRequestQueue;
 
-    public static synchronized ExampleRequestManager getInstance(Context context) {
+    public static synchronized WeatherRequestManager getInstance(Context context) {
         if (sInstance == null) {
-            sInstance = new ExampleRequestManager(context);
+            sInstance = new WeatherRequestManager(context);
         }
         return sInstance;
     }
 
-    private ExampleRequestManager(Context context) {
+    private WeatherRequestManager(Context context) {
         mContext = context;
         mRequestQueue = Volley.newRequestQueue(mContext);
     }

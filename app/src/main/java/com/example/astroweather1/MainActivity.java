@@ -23,10 +23,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        if(WeatherInformationOperator.readSettingsFile(this)>600000){//po 10 minutach dopiero mogą być odświeżone dane; tu powinno być 600000
-            ExampleRequestManager requestManager = ExampleRequestManager.getInstance(this);
+        if(WeatherInformationOperator.readSettingsFile(this)>600000){//po 10 minutach dopiero mogą być odświeżone dane, czyli 600000 milisekund
+            WeatherRequestManager requestManager = WeatherRequestManager.getInstance(this);
             final Context context = this;
-            ExampleRequest request = new ExampleRequest(Request.Method.GET, null, null, WeatherInformation.getCity(), new Response.Listener() {
+            WeatherRequest request = new WeatherRequest(Request.Method.GET, null, null, WeatherInformation.getCity(), new Response.Listener() {
                 @Override
                 public void onResponse(Object response) {
                     System.out.println(response.toString());
@@ -36,14 +36,12 @@ public class MainActivity extends AppCompatActivity {
                     }catch (Exception e){
                         e.printStackTrace();
                     }
-                    // Add success logic here
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     toastMessage("Read new data from a file - no Internet access");
                     WeatherInformationOperator.readWeatherForecastFile(context);
-                    // Add error handling here
                 }
             });
             requestManager.addToRequestQueue(request);

@@ -1,5 +1,6 @@
-package com.example.astroweather1;
+package com.example.astroweather1.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,61 +10,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.astroweather1.R;
 import com.example.astroweather1.weather.WeatherInformation;
 import com.example.astroweather1.weather.WeatherSimpleInformation;
 
 import java.util.List;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link UpcomingDaysFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class UpcomingDaysFragment extends Fragment implements UpdateData{
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+public class UpcomingDaysFragment extends Fragment implements UpdateData {
     private TextView dayTextView,dayTextView2,dayTextView3,dayTextView4,dayTextView5,dayTextView6,dayTextView7;
     private TextView minTextView,minTextView2,minTextView3,minTextView4,minTextView5,minTextView6,minTextView7;
     private TextView maxTextView,maxTextView2,maxTextView3,maxTextView4,maxTextView5,maxTextView6,maxTextView7;
     private TextView descriptionTextView, descriptionTextView2, descriptionTextView3, descriptionTextView4, descriptionTextView5, descriptionTextView6, descriptionTextView7;
 
-    public UpcomingDaysFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment UpcomingDaysFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static UpcomingDaysFragment newInstance(String param1, String param2) {
-        UpcomingDaysFragment fragment = new UpcomingDaysFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -113,6 +75,7 @@ public class UpcomingDaysFragment extends Fragment implements UpdateData{
         updateData();
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void updateData(){
         List<WeatherSimpleInformation> days = WeatherInformation.getDays();

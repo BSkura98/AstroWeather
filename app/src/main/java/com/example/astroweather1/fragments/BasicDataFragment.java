@@ -1,4 +1,4 @@
-package com.example.astroweather1;
+package com.example.astroweather1.fragments;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.astroweather1.R;
 import com.example.astroweather1.weather.WeatherInformation;
 
 import java.text.SimpleDateFormat;
@@ -22,38 +23,20 @@ import java.util.TimeZone;
 
 
 public class BasicDataFragment extends Fragment implements UpdateData {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    TextView cityTextView, temperatureTextView, descriptionTextView, pressureTextView, timeTextView, latitudeTextView, longitudeTextView;
+    private TextView cityTextView, temperatureTextView, descriptionTextView, pressureTextView, timeTextView, latitudeTextView, longitudeTextView;
     private Calendar currentDate;
     private Handler handler;
-
-    public BasicDataFragment() {
-        // Required empty public constructor
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_basic_data, container, false);
-        // Inflate the layout for this fragment
         cityTextView = view.findViewById(R.id.cityTextView);
         temperatureTextView = view.findViewById(R.id.temperatureTextView);
         descriptionTextView = view.findViewById(R.id.descriptionTextView);

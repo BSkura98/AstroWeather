@@ -33,9 +33,8 @@ public class ChangeCityActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String newEntry = cityEditText.getText().toString();
                 if (cityEditText.length() != 0) {
-                    //AddData(newEntry);
-                    ExampleRequestManager requestManager = ExampleRequestManager.getInstance(context);
-                    ExampleRequest request = new ExampleRequest(Request.Method.GET, null, null, newEntry, new Response.Listener() {
+                    WeatherRequestManager requestManager = WeatherRequestManager.getInstance(context);
+                    WeatherRequest request = new WeatherRequest(Request.Method.GET, null, null, newEntry, new Response.Listener() {
                         @Override
                         public void onResponse(Object response) {
                             System.out.println(response.toString());
@@ -46,14 +45,11 @@ public class ChangeCityActivity extends AppCompatActivity {
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
-                            // Add success logic here
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             toastMessage("Error");
-                            //FileOperator.readFile(context);
-                            // Add error handling here
                         }
                     });
                     requestManager.addToRequestQueue(request);

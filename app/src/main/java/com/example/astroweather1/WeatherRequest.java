@@ -20,7 +20,7 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ExampleRequest<T> extends JsonRequest<T> {
+public class WeatherRequest<T> extends JsonRequest<T> {
 
     final String appId = "F1wQmT7k";
     final String CONSUMER_KEY = "dj0yJmk9WVR3Z0tQbmFudnlDJmQ9WVdrOVJqRjNVVzFVTjJzbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PWI3";
@@ -29,7 +29,7 @@ public class ExampleRequest<T> extends JsonRequest<T> {
 
     static String city = "Sunnyvale";
 
-    public ExampleRequest(int method, String url, String requestBody, String city, Response.Listener<T> listener, Response.ErrorListener errorListener) {
+    public WeatherRequest(int method, String url, String requestBody, String city, Response.Listener<T> listener, Response.ErrorListener errorListener) {
         super(method, url, requestBody, listener, errorListener);
         if(city!=null){
             this.city = city;
@@ -77,7 +77,7 @@ public class ExampleRequest<T> extends JsonRequest<T> {
     }
 
     private T parseResponse(String jsonObject) {
-        return (T)jsonObject; // Add response parsing here
+        return (T)jsonObject;
     }
 
     public void setCity(String city){

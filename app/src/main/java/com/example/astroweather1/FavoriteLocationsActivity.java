@@ -29,13 +29,13 @@ public class FavoriteLocationsActivity extends AppCompatActivity {
     private ListView listView;
     Button addCityButton;
     EditText cityEditText;
-    ExampleRequestManager requestManager;
+    WeatherRequestManager requestManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite_locations);
-        requestManager = ExampleRequestManager.getInstance(this);
+        requestManager = WeatherRequestManager.getInstance(this);
         listView=findViewById(R.id.listView);
         addCityButton = findViewById(R.id.confirmCityButton);
         cityEditText=findViewById(R.id.cityEditText);
@@ -59,27 +59,24 @@ public class FavoriteLocationsActivity extends AppCompatActivity {
 
     public void AddData(String newEntry) {
         final Context context = this;
-        final ExampleRequest request = new ExampleRequest(Request.Method.GET, null, null, newEntry, new Response.Listener() {
+        final WeatherRequest request = new WeatherRequest(Request.Method.GET, null, null, newEntry, new Response.Listener() {
             @Override
             public void onResponse(Object response) {
                 System.out.println("Response: "+response.toString());
                 try{
                     WeatherInformationOperator.parse(response.toString(), context);
-                    //FileOperator.saveFile(response.toString(), context);
                     addToDatabase(WeatherInformation.getCity());
                     populateListView();
                 }catch (Exception e){
                     toastMessage("An error occured");
                     e.printStackTrace();
                 }
-                // Add success logic here
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 System.out.println("Error");
                 toastMessage("Something went wrong");
-                // Add error handling here
             }
         });
         requestManager.addToRequestQueue(request);
@@ -99,23 +96,19 @@ public class FavoriteLocationsActivity extends AppCompatActivity {
         Cursor data = databaseHelper.getData();
         ArrayList<String> listData = new ArrayList<>();
         while(data.moveToNext()){
-            //get the value from the database in column 1
-            //then add it to the ArrayList
             listData.add(data.getString(1));
         }
-        //create the list adapter and set the adapter
         ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);
         listView.setAdapter(adapter);
         listView.setLongClickable(true);
         final Context context = this;
 
-        //set an onItemClickListener to the ListView
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String name = adapterView.getItemAtPosition(i).toString();
                 System.out.println(name.toLowerCase());
-                ExampleRequest request = new ExampleRequest(Request.Method.GET, null, null, name, new Response.Listener() {
+                WeatherRequest request = new WeatherRequest(Request.Method.GET, null, null, name, new Response.Listener() {
                     @Override
                     public void onResponse(Object response) {
                         System.out.println(response.toString());
@@ -126,13 +119,11 @@ public class FavoriteLocationsActivity extends AppCompatActivity {
                             toastMessage("Error");
                             e.printStackTrace();
                         }
-                        // Add success logic here
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         toastMessage("Error");
-                        // Add error handling here
                     }
                 });
                 requestManager.addToRequestQueue(request);
@@ -146,13 +137,11 @@ public class FavoriteLocationsActivity extends AppCompatActivity {
                 final String name = parent.getItemAtPosition(position).toString();
 
                 new AlertDialog.Builder(FavoriteLocationsActivity.this)
-                        .setIcon(android.R.drawable.ic_delete)
                         .setTitle("Are you sure?")
                         .setMessage("Do you want to delete this item?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                //databaseHelper.deleteName(databaseHelper.getItemID(name).getPosition(), name);
                                 databaseHelper.deleteData(name);
                                 populateListView();
                                 toastMessage("Deleted");

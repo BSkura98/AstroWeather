@@ -7,6 +7,10 @@ import android.os.Bundle;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.astroweather1.fragments.AdditionalDataFragment;
+import com.example.astroweather1.fragments.BasicDataFragment;
+import com.example.astroweather1.fragments.UpcomingDaysFragment;
+import com.example.astroweather1.fragments.UpdateData;
 import com.example.astroweather1.ui.main.WeatherSectionsPagerAdapter;
 import com.example.astroweather1.weather.WeatherInformation;
 import com.example.astroweather1.weather.WeatherInformationOperator;
@@ -20,8 +24,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
-import com.example.astroweather1.ui.main.AstroSectionsPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,8 +71,6 @@ public class WeatherActivity extends AppCompatActivity {
             case R.id.favorite_locations:
                 intent = new Intent(this, FavoriteLocationsActivity.class);
                 startActivity(intent);
-                //intent = new Intent(this, RefreshTimeSettingsActivity.class);
-                //startActivity(intent);
                 return true;
             case R.id.change_city:
                 intent=new Intent(this, ChangeCityActivity.class);
@@ -79,33 +79,28 @@ public class WeatherActivity extends AppCompatActivity {
             case R.id.change_units:
                 intent = new Intent(this, UnitSelectionActivity.class);
                 startActivity(intent);
-                //intent = new Intent(this, RefreshTimeSettingsActivity.class);
-                //startActivity(intent);
                 return true;
             case R.id.refresh_weather_data:
-                ExampleRequestManager requestManager = ExampleRequestManager.getInstance(this);
+                WeatherRequestManager requestManager = WeatherRequestManager.getInstance(this);
                 final Context context = this;
-                final ExampleRequest request = new ExampleRequest(Request.Method.GET, null, null, WeatherInformation.getCity(), new Response.Listener() {
+                final WeatherRequest request = new WeatherRequest(Request.Method.GET, null, null, WeatherInformation.getCity(), new Response.Listener() {
                     @Override
                     public void onResponse(Object response) {
                         System.out.println("Response: "+response.toString());
                         try{
                             WeatherInformationOperator.parse(response.toString(), context);
-                            //FileOperator.saveFile(response.toString(), context);
                             for(Fragment fragment:fragments){
                                 ((UpdateData)fragment).updateData();
                             }
                         }catch (Exception e){
                             e.printStackTrace();
                         }
-                        // Add success logic here
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         System.out.println("Error");
                         toastMessage("Something went wrong");
-                        // Add error handling here
                     }
                 });
                 requestManager.addToRequestQueue(request);

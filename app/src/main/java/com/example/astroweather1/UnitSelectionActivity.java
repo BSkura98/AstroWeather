@@ -73,7 +73,6 @@ public class UnitSelectionActivity extends AppCompatActivity {
         temperatureSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //use postion value
                 switch (position)
                 {
                     case 0:
@@ -96,7 +95,6 @@ public class UnitSelectionActivity extends AppCompatActivity {
         pressureSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //use postion value
                 switch (position)
                 {
                     case 0:
@@ -119,7 +117,6 @@ public class UnitSelectionActivity extends AppCompatActivity {
         windSpeedSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //use postion value
                 switch (position)
                 {
                     case 0:
@@ -142,7 +139,6 @@ public class UnitSelectionActivity extends AppCompatActivity {
         visibilitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //use postion value
                 switch (position)
                 {
                     case 0:
