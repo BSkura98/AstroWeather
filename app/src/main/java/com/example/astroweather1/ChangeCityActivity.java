@@ -43,13 +43,14 @@ public class ChangeCityActivity extends AppCompatActivity {
                                 WeatherInformationOperator.parse(response.toString(), context);
                                 finish();
                             }catch (Exception e){
+                                toastMessage("Error");
                                 e.printStackTrace();
                             }
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            toastMessage("Error");
+                            toastMessage("An error occured - make sure you have internet access");
                         }
                     });
                     requestManager.addToRequestQueue(request);

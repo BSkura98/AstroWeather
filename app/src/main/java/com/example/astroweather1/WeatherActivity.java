@@ -99,8 +99,7 @@ public class WeatherActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println("Error");
-                        toastMessage("Something went wrong");
+                        toastMessage("An error occurred while refreshing the data - make sure you have internet access");
                     }
                 });
                 requestManager.addToRequestQueue(request);

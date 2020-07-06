@@ -68,15 +68,14 @@ public class FavoriteLocationsActivity extends AppCompatActivity {
                     addToDatabase(WeatherInformation.getCity());
                     populateListView();
                 }catch (Exception e){
-                    toastMessage("An error occured");
+                    toastMessage("An error occured - make sure the city name is correct");
                     e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("Error");
-                toastMessage("Something went wrong");
+                toastMessage("An error occured - make sure you have internet access");
             }
         });
         requestManager.addToRequestQueue(request);
@@ -123,7 +122,7 @@ public class FavoriteLocationsActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        toastMessage("Error");
+                        toastMessage("An error occured - make sure you have internet access");
                     }
                 });
                 requestManager.addToRequestQueue(request);

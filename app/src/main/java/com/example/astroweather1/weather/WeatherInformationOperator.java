@@ -61,7 +61,7 @@ public class WeatherInformationOperator {
         }
     }
 
-    public static void readWeatherForecastFile(Context context){
+    public static void readWeatherForecastFile(Context context) throws FileNotFoundException {
         FileInputStream fis = null;
 
         try{
@@ -75,6 +75,8 @@ public class WeatherInformationOperator {
                 sb.append(text).append("\n");
             }
             WeatherInformationOperator.parse(sb.toString(), context);
+        }catch(FileNotFoundException e){
+            throw e;
         }catch (Exception e){
             e.printStackTrace();
         }finally {

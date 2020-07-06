@@ -15,6 +15,8 @@ import com.android.volley.VolleyError;
 import com.example.astroweather1.weather.WeatherInformation;
 import com.example.astroweather1.weather.WeatherInformationOperator;
 
+import java.io.FileNotFoundException;
+
 public class MainActivity extends AppCompatActivity {
     Button astroButton, weatherButton;
 
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onResponse(Object response) {
                     System.out.println(response.toString());
                     try{
-                        toastMessage("Downloaded new data from Internet");
+                        toastMessage("Weather information updated");
                         WeatherInformationOperator.parse(response.toString(), context);
                     }catch (Exception e){
                         e.printStackTrace();
@@ -40,14 +42,22 @@ public class MainActivity extends AppCompatActivity {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    toastMessage("Read new data from a file - no Internet access");
-                    WeatherInformationOperator.readWeatherForecastFile(context);
+                    try{
+                        WeatherInformationOperator.readWeatherForecastFile(context);
+                        toastMessage("No internet access - reading weather information from a file...");
+                    }catch (FileNotFoundException e){
+                        toastMessage("No internet access - the weather information in the application is incorrect");
+                    }
                 }
             });
             requestManager.addToRequestQueue(request);
         }else{
-            WeatherInformationOperator.readWeatherForecastFile(this);
-            toastMessage("Read new data from a file");
+            try{
+                WeatherInformationOperator.readWeatherForecastFile(this);
+                toastMessage("Reading weather information from a file...");
+            }catch (FileNotFoundException e){
+                toastMessage("An error occured while reading weather information from a file");
+            }
         }
 
         astroButton =findViewById(R.id.astroButton);
