@@ -33,6 +33,7 @@ public class WeatherInformationOperator {
         WeatherInformation.setHumidity(obj.getJSONObject("current_observation").getJSONObject("atmosphere").getInt("humidity"));
         WeatherInformation.setVisibilityInMiles(obj.getJSONObject("current_observation").getJSONObject("atmosphere").getDouble("visibility"));
         JSONArray array = obj.getJSONArray("forecasts");
+        WeatherInformation.deleteDays();
         for(int i=0;i<array.length();i++){
             WeatherInformation.addDay(new WeatherSimpleInformation(((JSONObject)array.get(i)).getString("day"),((JSONObject)array.get(i)).getInt("low"),((JSONObject)array.get(i)).getInt("high"), ((JSONObject)array.get(i)).getString("text")));
         }

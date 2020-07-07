@@ -46,7 +46,7 @@ public class FavoriteLocationsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String newEntry = cityEditText.getText().toString();
                 if (cityEditText.length() != 0) {
-                    AddData(newEntry.trim().replace(" ", "-"));
+                    AddData(newEntry);
                     cityEditText.setText("");
                 } else {
                     toastMessage("You must put something in the text field!");

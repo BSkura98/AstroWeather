@@ -40,7 +40,6 @@ public class ChangeCityActivity extends AppCompatActivity {
                             public void onResponse(Object response) {
                                 System.out.println(response.toString());
                                 try{
-                                    toastMessage("Downloaded new data from Internet");
                                     WeatherInformationOperator.parse(response.toString(), context);
                                     finish();
                                 }catch (Exception e){

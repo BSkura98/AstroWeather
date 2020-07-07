@@ -27,37 +27,14 @@ public class MainActivity extends AppCompatActivity {
 
         if(ConnectionInformation.checkInternetConnection(this)) {
             if(WeatherInformationOperator.readSettingsFile(this)>600000){//po 10 minutach dopiero mogą być odświeżone dane, czyli 600000 milisekund
-                WeatherRequestManager requestManager = WeatherRequestManager.getInstance(this);
-                final Context context = this;
-                WeatherRequest request = new WeatherRequest(Request.Method.GET, null, null, WeatherInformation.getCity(), new Response.Listener() {
-                    @Override
-                    public void onResponse(Object response) {
-                        System.out.println(response.toString());
-                        try{
-                            toastMessage("Weather information updated");
-                            WeatherInformationOperator.parse(response.toString(), context);
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        try{
-                            WeatherInformationOperator.readWeatherForecastFile(context);
-                            toastMessage("No internet access - reading weather information from a file...");
-                        }catch (FileNotFoundException e){
-                            toastMessage("No internet access - the weather information in the application is incorrect");
-                        }
-                    }
-                });
-                requestManager.addToRequestQueue(request);
+                sendRequest();
             }else{
                 try{
                     WeatherInformationOperator.readWeatherForecastFile(this);
                     toastMessage("Reading weather information from a file...");
                 }catch (FileNotFoundException e){
-                    toastMessage("An error occured while reading weather information from a file");
+                    sendRequest();
+                    //toastMessage("An error occured while reading weather information from a file");
                 }
             }
         }
@@ -88,6 +65,34 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(startIntent);
             }
         });
+    }
+
+    private void sendRequest(){
+        WeatherRequestManager requestManager = WeatherRequestManager.getInstance(this);
+        final Context context = this;
+        WeatherRequest request = new WeatherRequest(Request.Method.GET, null, null, WeatherInformation.getCity(), new Response.Listener() {
+            @Override
+            public void onResponse(Object response) {
+                System.out.println(response.toString());
+                try{
+                    toastMessage("Weather information updated");
+                    WeatherInformationOperator.parse(response.toString(), context);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                try{
+                    WeatherInformationOperator.readWeatherForecastFile(context);
+                    toastMessage("No internet access - reading weather information from a file...");
+                }catch (FileNotFoundException e){
+                    toastMessage("No internet access - the weather information in the application is incorrect");
+                }
+            }
+        });
+        requestManager.addToRequestQueue(request);
     }
 
     private void toastMessage(String message){

@@ -32,7 +32,7 @@ public class WeatherRequest<T> extends JsonRequest<T> {
     public WeatherRequest(int method, String url, String requestBody, String city, Response.Listener<T> listener, Response.ErrorListener errorListener) {
         super(method, url, requestBody, listener, errorListener);
         if(city!=null){
-            this.city = city;
+            this.city = city.trim().replace(" ", "-");
         }
     }
 

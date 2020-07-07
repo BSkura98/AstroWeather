@@ -93,6 +93,7 @@ public class WeatherActivity extends AppCompatActivity {
                                 for(Fragment fragment:fragments){
                                     ((UpdateData)fragment).updateData();
                                 }
+                                toastMessage("Information updated");
                             }catch (Exception e){
                                 e.printStackTrace();
                             }

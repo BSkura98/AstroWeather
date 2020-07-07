@@ -118,6 +118,10 @@ public class WeatherInformation {
         return days;
     }
 
+    public static void deleteDays(){
+        days.clear();
+    }
+
     public static String getTemperatureUnit() {
         return temperatureUnit;
     }
