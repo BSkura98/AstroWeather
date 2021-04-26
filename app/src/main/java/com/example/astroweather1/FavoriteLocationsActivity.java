@@ -89,7 +89,7 @@ public class FavoriteLocationsActivity extends AppCompatActivity {
         boolean insertData = databaseHelper.addData(city);
 
         if (insertData) {
-            Toast.makeText(this,"Data Successfully Inserted!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"City added!", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this,"Something went wrong", Toast.LENGTH_SHORT).show();
         }
