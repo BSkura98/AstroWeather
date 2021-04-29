@@ -2,12 +2,7 @@
 This application allows you to check astronomical and weather information for a selected location. You can save your favorite locations or change units related to weather information.
 
 ## Screenshots
-![Menu](./img/menu.jpg)
-![Astronomical information](./img/astronomical_information.jpg)
-![Weather information](./img/weather_information.jpg)
-![Weather forecast for week](./img/weather_forecast_for_week.jpg)
-![Favorite locations](./img/favorite_locations.jpg)
-![Change units](./img/change_units.jpg)
+<img src="./img/menu.jpg" width="200"> <img src="./img/astronomical_information.jpg" width="200"> <img src="./img/weather_information.jpg" width="200"> <img src="./img/weather_forecast_for_week.jpg" width="200"> <img src="./img/favorite_locations.jpg" width="200"> <img src="./img/change_units.jpg" width="200">
 
 ## Technologies
 * Java
